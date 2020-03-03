@@ -1,70 +1,80 @@
+<!DOCTYPE html>
 <html>
-
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-duration-format/2.3.2/moment-duration-format.min.js">
-  </script>
-  <script src="js/calculation.js"></script>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-
-<body onload="changeDLspeedUnit('Kbs'); changeFLsizeUnit('MB')" style="background-color: #212121;">
-  <div class="container bg-dark">
-    <br>
-    <h1 style="color: #e0e0e0; padding-bottom: 13px;">Download speed calculator</h1>
-    <div class="input-group">
-      <input placeholder="File size here" type="number" class="form-control"
-        aria-label="Text input with dropdown button" id="FLsize">
-      <div class="input-group-append bg-dark">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" id="dropdownFLsize">
-          <span style="color: #e0e0e0;"></span>
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" onclick="changeFLsizeUnit('KB');">KB</a>
-          <a class="dropdown-item" onclick="changeFLsizeUnit('MB');">MB</a>
-          <a class="dropdown-item" onclick="changeFLsizeUnit('GB');">GB</a>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.js"
+      integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js"
+      integrity="sha256-O17BxFKtTt1tzzlkcYwgONw4K59H+r1iI8mSQXvSf5k="
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="card-deck" style="margin: 15px">
+      <div class="card bg-dark text-white">
+        <div class="card-header">Alarm clock settings</div>
+        <div class="card-body">
+          Currently alarm is set to: <span class="timeIndicator"id="alarmTime">13:29</span>
+          <p>
+            Remaining time: <span id="remainingAlarmTime" class="timeIndicator">10h 12m 33s</span>
+          </p>
+          Choose the alarm time here:
+          
+            <input
+              class="bg-dark"
+              style="
+            border: 0px;
+            color: white;
+            "
+              type="time"
+              name="time"
+              autocomplete="off"
+            />
+          </p>
+          <p>
+            <input
+              class="btn btn-outline-primary "
+              type="submit"
+              value="Send time data"
+            />
+          </p>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="input-group">
-      <input placeholder="Download speed here" type="number" class="form-control"
-        aria-label="Text input with dropdown button" id="DLspeed">
-      <div class="input-group-append bg-dark">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" id="dropdownDLspeed">
-          <span style="color: #e0e0e0;"></span>
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" onclick="changeDLspeedUnit('Kbs');">Kb/s</a>
-          <a class="dropdown-item" onclick="changeDLspeedUnit('Mbs');">Mb/s</a>
-          <a class="dropdown-item" onclick="changeDLspeedUnit('Gbs');">Gb/s</a>
+
+        <div class="card bg-dark text-white">
+        <div class="card-header">Water Mixer settings</div>
+        <div class="card-body">
+            Currenty alarm is: <span id="waterMixerState">ON</span>
+            <br />
+            Remaining time:
+            <br />
+            <span id="waterMixerMinutes" class="timeIndicator">10 minutes</span>
+            <span id="waterMixerSeconds" class="timeIndicator">29 seconds</span>
+            <p>
+            <br>
+            <button class="btn btn-outline-primary" onclick="startTimer()">
+                Start Timer
+            </button>
+            </p>
         </div>
-      </div>
+        </div>
     </div>
-    <br>
-    <div class="resultBox">
-      <h2>
-        <p id="resultTime">Enter the values ❕</p>
-      </h2>
-    </div>
-    <p class="text-muted">Made by <a href="https://gbaranski.com">Grzegorz Baranski</a></p>
-  </div>
-  </div>
-  <script>
-    $("input").on("input", function (e) {
-      calcDLtime();
-    });
-  </script>
-
-
-</body>
-
+    </body>
 </html>
