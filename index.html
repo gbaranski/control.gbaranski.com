@@ -1,0 +1,70 @@
+<html>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-duration-format/2.3.2/moment-duration-format.min.js">
+  </script>
+  <script src="js/calculation.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="changeDLspeedUnit('Kbs'); changeFLsizeUnit('MB')" style="background-color: #212121;">
+  <div class="container bg-dark">
+    <br>
+    <h1 style="color: #e0e0e0; padding-bottom: 13px;">Download speed calculator</h1>
+    <div class="input-group">
+      <input placeholder="File size here" type="number" class="form-control"
+        aria-label="Text input with dropdown button" id="FLsize">
+      <div class="input-group-append bg-dark">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" id="dropdownFLsize">
+          <span style="color: #e0e0e0;"></span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" onclick="changeFLsizeUnit('KB');">KB</a>
+          <a class="dropdown-item" onclick="changeFLsizeUnit('MB');">MB</a>
+          <a class="dropdown-item" onclick="changeFLsizeUnit('GB');">GB</a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="input-group">
+      <input placeholder="Download speed here" type="number" class="form-control"
+        aria-label="Text input with dropdown button" id="DLspeed">
+      <div class="input-group-append bg-dark">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" id="dropdownDLspeed">
+          <span style="color: #e0e0e0;"></span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" onclick="changeDLspeedUnit('Kbs');">Kb/s</a>
+          <a class="dropdown-item" onclick="changeDLspeedUnit('Mbs');">Mb/s</a>
+          <a class="dropdown-item" onclick="changeDLspeedUnit('Gbs');">Gb/s</a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="resultBox">
+      <h2>
+        <p id="resultTime">Enter the values ❕</p>
+      </h2>
+    </div>
+    <p class="text-muted">Made by <a href="https://gbaranski.com">Grzegorz Baranski</a></p>
+  </div>
+  </div>
+  <script>
+    $("input").on("input", function (e) {
+      calcDLtime();
+    });
+  </script>
+
+
+</body>
+
+</html>
