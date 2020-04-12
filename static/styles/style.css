@@ -1,26 +1,53 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
 body {
   background-color: #212121 !important;
-  font-family: "Raleway" !important;
+  font-family: 'Montserrat', sans-serif;
   color: #fafafa;
   text-align: center;
-  font-family: "Comic Sans MS", cursive, sans-serif;
   margin-left: 0px;
   margin-right: 0px;
   font-size: 20px;
 }
+
 .card-header {
   text-align: center;
   font-size: 40px;
 }
+
 .card-body {
   font-size: 20px;
   text-align: center;
 }
+
 .inputTime {
   background: #212121;
   border: 0px;
 }
+
 .timeIndicator {
   font-size: 25px;
+}
+
+.whiteLine {
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.temperatureIcon {
+  width: 10%;
+  height: auto;
+}
+
+.humidityIcon {
+  width: 13%;
+  height: auto;
+}
+
+
+#temperature {
+  font-size: 30px;
+}
+
+#humidity {
+  font-size: 30px;
 }
