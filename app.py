@@ -1,37 +1,44 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import Response
+from quart import (
+    Quart, render_template, request, jsonify
+)
+import aiohttp
+import asyncio
+import async_timeout
+import json
 
-import requests
-
-app = Flask(__name__)
+app = Quart(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+async def fetch(url):
+    async with aiohttp.ClientSession() as session, async_timeout.timeout(100):
+        async with session.get(url) as response:
+            return await response.json()
+
+async def sendTime(url):
+    async with aiohttp.ClientSession() as session, async_timeout.timeout(100):
+        async with session.get(url):
+            return "OK"
+
 @app.route('/')
-def handleMain():
-    return render_template("index.html")
+async def handleMain():
+    return await render_template("index.html")
 
 @app.route('/getESPData')
-def handleEspDataRequest():
+async def handleEspDataRequest():
     espUrl = "http://192.168.1.110/getESPData"
-    return requests.get(url=espUrl).json()
+    responses = await asyncio.gather(
+        fetch(espUrl),
+    )
+    return responses[0]
 
 @app.route('/setAlarmTime')
-def handleSetAlarmTime():
-    print(request.args.get("time"))
+async def handleSetAlarmTime():
     time = request.args.get('time')
     espUrl = "http://192.168.1.110/setAlarm?time=" + time
-    r = requests.get(espUrl)
-    if r.status_code == 200:
-        print("OK")
-        return Response(status=200)
-    else:
-        print("NOTOK")
-        return "NOT OK"
+    response = await asyncio.gather(
+        sendTime(espUrl),
+    )
+    return "OK"
 
     
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=80)
+app.run(debug=True, host="0.0.0.0", port=80)
