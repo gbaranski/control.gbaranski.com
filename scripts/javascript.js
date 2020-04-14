@@ -68,6 +68,7 @@ function startMixingWater() {
 
 $(function () {
   getAlarmDataFromRemote();
+  startMixingWater();
   $("#submitTime").click(function () {
     setAlarmTime();
   });
