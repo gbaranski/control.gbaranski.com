@@ -1,4 +1,4 @@
-function setDataInPlace(jsonObject) {
+function setAlarmDataInPlace(jsonObject) {
   console.log(jsonObject);
   document.getElementById("alarmTime").innerText = jsonObject.alarmTime;
   let formattedRemainingTime = jsonObject.remainingTime.substring(0, 2) + "h" + " " + jsonObject.remainingTime.substring(3, 5) + "m";
@@ -8,17 +8,17 @@ function setDataInPlace(jsonObject) {
 }
 
 
-function getDataFromRemote() {
+function getAlarmDataFromRemote() {
 
   let xhttp = new XMLHttpRequest;
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      setDataInPlace(JSON.parse(this.responseText));
+      setAlarmDataInPlace(JSON.parse(this.responseText));
     }
   };
-  xhttp.open("GET", "https://control.gbaranski.com/getESPData", true)
+  xhttp.open("GET", "https://control.gbaranski.com/getAlarmESPData", true)
   xhttp.send();
-  setTimeout(getDataFromRemote, 10000);
+  setTimeout(getAlarmDataFromRemote, 10000);
 
 }
 
@@ -27,7 +27,7 @@ function setAlarmTime() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log("GOOD RESPONSE");
-      getDataFromRemote();
+      getAlarmDataFromRemote();
     } else {
       console.log("Something went wrong");
     }
@@ -37,11 +37,42 @@ function setAlarmTime() {
   xhttp.send();
 }
 
+function setWaterMixerDataInPlace(jsonObject) {
+  console.log(jsonObject)
+}
+
+function getWaterMixerDataFromRemote() {
+  let xhttp = new XMLHttpRequest;
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      setWaterMixerDataInPlace(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
+  setTimeout(getWaterMixerDataFromRemote, 1000);
+}
+
+function startMixingWater() {
+  let xhttp = new XMLHttpRequest;
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("GOOD RESPONSE");
+      getWaterMixerDataFromRemote();
+    } else {
+      console.log("Something went wrong");
+    }
+  };
+  xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
+}
+
 
 $(function () {
-  getDataFromRemote();
+  getAlarmDataFromRemote();
   $("#submitTime").click(function () {
     setAlarmTime();
+  });
+  $("#startMixingButton").click(function () {
+    startMixingWater();
   });
 });
 
