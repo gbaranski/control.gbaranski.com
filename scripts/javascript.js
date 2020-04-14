@@ -16,7 +16,7 @@ function getDataFromRemote() {
       setDataInPlace(JSON.parse(this.responseText));
     }
   };
-  xhttp.open("GET", "http://control.gbaranski.com/getESPData", true)
+  xhttp.open("GET", "https://control.gbaranski.com/getESPData", true)
   xhttp.send();
   setTimeout(getDataFromRemote, 10000);
 
@@ -31,7 +31,7 @@ function setAlarmTime() {
       console.log("Something went wrong");
     }
   };
-  let url = "http://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
+  let url = "https://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
   xhttp.open("GET", url, true);
   xhttp.send();
 }
