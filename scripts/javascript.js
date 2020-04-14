@@ -49,7 +49,9 @@ function getWaterMixerDataFromRemote() {
     }
   };
   xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
+  xhttp.send();
   setTimeout(getWaterMixerDataFromRemote, 1000);
+
 }
 
 function startMixingWater() {
@@ -63,6 +65,7 @@ function startMixingWater() {
     }
   };
   xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
+  xhttp.send();
 }
 
 
