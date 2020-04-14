@@ -18,7 +18,6 @@ function getAlarmDataFromRemote() {
   };
   xhttp.open("GET", "https://control.gbaranski.com/getAlarmESPData", true)
   xhttp.send();
-  setTimeout(getAlarmDataFromRemote, 10000);
 
 }
 
@@ -39,9 +38,13 @@ function setAlarmTime() {
 
 function setWaterMixerDataInPlace(jsonObject) {
   console.log(jsonObject)
+  document.getElementById("waterMixerState").innerText = jsonObject.isTimerOn == "1" ? "ON" : "OFF";
+  document.getElementById("waterMixerMinutes").innerText = Math.floor((jsonObject.remainingSeconds / 60) % 60) + "minutes";
+  document.getElementById("waterMixerSeconds").innerText = jsonObject.remainingSeconds % 60 + "seconds";
 }
 
 function getWaterMixerDataFromRemote() {
+
   let xhttp = new XMLHttpRequest;
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -50,8 +53,6 @@ function getWaterMixerDataFromRemote() {
   };
   xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
   xhttp.send();
-  setTimeout(getWaterMixerDataFromRemote, 1000);
-
 }
 
 function startMixingWater() {
@@ -64,14 +65,16 @@ function startMixingWater() {
       console.log("Something went wrong");
     }
   };
-  xhttp.open("GET", "https://control.gbaranski.com/getWaterMixerESPData", true)
+  xhttp.open("GET", "https://control.gbaranski.com/startMixing", true)
   xhttp.send();
 }
 
 
 $(function () {
   getAlarmDataFromRemote();
+  setInterval(getAlarmDataFromRemote, 10000);
   getWaterMixerDataFromRemote();
+  setInterval(getWaterMixerDataFromRemote, 1000);
   $("#submitTime").click(function () {
     setAlarmTime();
   });
