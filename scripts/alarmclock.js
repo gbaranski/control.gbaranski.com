@@ -9,15 +9,16 @@ function setAlarmDataInPlace(jsonObject) {
 
 
 function getAlarmDataFromRemote() {
-
-  let xhttp = new XMLHttpRequest;
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      setAlarmDataInPlace(JSON.parse(this.responseText));
-    }
-  };
-  xhttp.open("GET", "https://control.gbaranski.com/getAlarmESPData", true)
-  xhttp.send();
+  if (document.hasFocus()) {
+    let xhttp = new XMLHttpRequest;
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        setAlarmDataInPlace(JSON.parse(this.responseText));
+      }
+    };
+    xhttp.open("GET", "https://control.gbaranski.com/getAlarmESPData", true)
+    xhttp.send();
+  }
 
 }
 
