@@ -41,8 +41,6 @@ function setAlarmTime() {
 $(function () {
   getAlarmDataFromRemote();
   setInterval(getAlarmDataFromRemote, 10000);
-  getWaterMixerDataFromRemote();
-  setInterval(getWaterMixerDataFromRemote, 1000);
   $("#submitTime").click(function () {
     setAlarmTime();
   });

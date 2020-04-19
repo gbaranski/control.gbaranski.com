@@ -37,7 +37,7 @@ function startMixingWater() {
 
 $(function () {
     getWaterMixerDataFromRemote();
-    setInterval(getWaterMixerDataFromRemote, 1000);
+    setInterval(getWaterMixerDataFromRemote, 10000);
     $("#startMixingButton").click(function () {
         startMixingWater();
     });
