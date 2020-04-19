@@ -45,7 +45,4 @@ $(function () {
   $("#submitTime").click(function () {
     setAlarmTime();
   });
-  $("#startMixingButton").click(function () {
-    startMixingWater();
-  });
 });
