@@ -38,8 +38,7 @@ function setAlarmTime() {
       console.log("Something went wrong");
     }
   };
-  const url = "https://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
-  console.log("URL:" + url);
+  let url = "https://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
   xhttp.open("GET", url, true);
   xhttp.send();
 }
@@ -53,8 +52,14 @@ function switchAlarmState() {
       console.log("Something went wrong");
     }
   };
+  if (document.getElementById("alarmState").innerText == "ON") {
+    const newState = 0;
+  } else if (document.getElementById("alarmState").innerText == "OFF") {
+    const newState = 1;
+  }
   const url = "https://control.gbaranski.com/setAlarmState?state=" +
-    document.getElementById("alarmState").innerText == "ON" ? "1" : "0";
+    document.getElementById("alarmState").innerText == "ON" ? "1" : "0"
+  console.log(url);
   xhttp.open("GET", url, true);
   xhttp.send();
 }
