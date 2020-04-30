@@ -5,7 +5,7 @@ function setAlarmDataInPlace(jsonObject) {
   document.getElementById("remainingAlarmTime").innerText = formattedRemainingTime;
   document.getElementById("temperature").innerText = jsonObject.temperature + "\xB0C";
   document.getElementById("humidity").innerText = jsonObject.humidity + "%";
-  if (jsonObject.alarmState) {
+  if (jsonObject.alarmState == "1") {
     document.getElementById("alarmState").innerText = "ON";
   } else {
     document.getElementById("alarmState").innerText = "OFF";
