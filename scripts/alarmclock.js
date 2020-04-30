@@ -38,7 +38,8 @@ function setAlarmTime() {
       console.log("Something went wrong");
     }
   };
-  let url = "https://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
+  const url = "https://control.gbaranski.com/setAlarm?time=" + document.getElementById("userDefinedAlarmTime").value;
+  console.log("URL:" + url);
   xhttp.open("GET", url, true);
   xhttp.send();
 }
