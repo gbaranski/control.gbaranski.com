@@ -10,9 +10,7 @@ function setAlarmDataInPlace(jsonObject) {
   } else {
     document.getElementById("alarmState").innerText = "OFF";
   }
-
 }
-
 
 function getAlarmDataFromRemote() {
   if (document.hasFocus()) {
@@ -34,7 +32,7 @@ function setAlarmTime() {
     if (this.readyState == 4 && this.status == 200) {
       console.log("GOOD RESPONSE");
       getAlarmDataFromRemote();
-    } else {
+    } else if (this.readyState == 4) {
       console.log("Something went wrong");
     }
   };
@@ -48,15 +46,13 @@ function switchAlarmState() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log("GOOD RESPONSE");
-    } else {
+    } else if (this.readyState == 4) {
       console.log("Something went wrong");
     }
   };
-  console.log(document.getElementById("alarmState").innerText);
   const newState = document.getElementById("alarmState").innerText == "ON" ? "0" : "1";
   const url = "https://control.gbaranski.com/setAlarmState?state=" + newState;
 
-  console.log(url);
   xhttp.open("GET", url, true);
   xhttp.send();
 }
