@@ -43,11 +43,29 @@ function setAlarmTime() {
   xhttp.send();
 }
 
+function switchAlarmState() {
+  let xhttp = new XMLHttpRequest;
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("GOOD RESPONSE");
+    } else {
+      console.log("Something went wrong");
+    }
+  };
+  const url = "https://control.gbaranski.com/setAlarmState?state=" +
+    document.getElementById("alarmState").innerText == "ON" ? "1" : "0";
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
 
 $(function () {
   getAlarmDataFromRemote();
   setInterval(getAlarmDataFromRemote, 2000);
   $("#submitTime").click(function () {
     setAlarmTime();
+  });
+  $("#switchAlarmState").click(function () {
+    switchAlarmState();
   });
 });
