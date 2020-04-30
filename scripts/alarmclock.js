@@ -52,13 +52,9 @@ function switchAlarmState() {
       console.log("Something went wrong");
     }
   };
-  if (document.getElementById("alarmState").innerText == "ON") {
-    const newState = 0;
-  } else if (document.getElementById("alarmState").innerText == "OFF") {
-    const newState = 1;
-  }
-  const url = "https://control.gbaranski.com/setAlarmState?state=" +
-    document.getElementById("alarmState").innerText == "ON" ? "1" : "0"
+  const newState = document.getElementById("alarmState").innerText == "ON" ? "1" : "0";
+  const url = "https://control.gbaranski.com/setAlarmState?state=" + newState;
+
   console.log(url);
   xhttp.open("GET", url, true);
   xhttp.send();
