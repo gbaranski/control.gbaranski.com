@@ -53,7 +53,7 @@ function switchAlarmState() {
     }
   };
   console.log(document.getElementById("alarmState").innerText);
-  const newState = document.getElementById("alarmState").innerText == "ON" ? "1" : "0";
+  const newState = document.getElementById("alarmState").innerText == "ON" ? "0" : "1";
   const url = "https://control.gbaranski.com/setAlarmState?state=" + newState;
 
   console.log(url);
