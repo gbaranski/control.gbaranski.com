@@ -40,7 +40,7 @@ function setAlarmTime() {
 
 $(function () {
   getAlarmDataFromRemote();
-  setInterval(getAlarmDataFromRemote, 10000);
+  setInterval(getAlarmDataFromRemote, 2000);
   $("#submitTime").click(function () {
     setAlarmTime();
   });
