@@ -59,6 +59,12 @@ function switchAlarmState() {
   xhttp.send();
 }
 
+function testAlarm() {
+  const xhttp = new XMLHttpRequest;
+  const url = "https://control.gbaranski.com/testAlarm";
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
 
 $(function () {
   getAlarmDataFromRemote();
@@ -68,5 +74,8 @@ $(function () {
   });
   $("#switchAlarmState").click(function () {
     switchAlarmState();
+  });
+  $("#testAlarm").click(function () {
+    testAlarm();
   });
 });
