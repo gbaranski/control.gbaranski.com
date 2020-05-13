@@ -41,8 +41,15 @@ function Cardbody(props) {
         <Button variant="primary" onClick={props.sendDataToRemoteFunction}>
           Send time data
         </Button>
-        <Button variant="primary">Switch state</Button>
-        <Button variant="primary">Test alarm!</Button>
+        <Button variant="primary" onClick={props.switchAlarmStateFunction}>
+          Switch state
+        </Button>
+        <Button variant="primary" onClick={props.testAlarmFunction}>
+          Test alarm!
+        </Button>
+        <Button variant="primary" onClick={props.refreshDataFunction}>
+          &#x21bb;
+        </Button>
         <div className="loader">
           <ClipLoader size={150} color="#123abc" loading={isLoading} />
         </div>

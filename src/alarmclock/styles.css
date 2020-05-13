@@ -3,12 +3,12 @@
   background-color: #212121;
   color: white;
   font-family: "Montserrat", sans-serif;
-  font-size: 30px;
+  font-size: 25px;
 
   transition: 1s filter linear;
 }
 .header {
-  font-size: 70px;
+  font-size: 50px;
 }
 
 .center {
@@ -42,4 +42,10 @@ Button {
 
 .blur {
   filter: blur(4px);
+}
+
+.refreshButton {
+  position: absolute;
+  right: 0%;
+  font-family: Lucida Sans Unicode;
 }
