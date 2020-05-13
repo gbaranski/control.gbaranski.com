@@ -36,6 +36,7 @@ function Cardbody(props) {
             className="timepicker bg-dark"
             type="time"
             id="alarmTime"
+            onChange={props.changeAlarmTime}
           ></input>
         </Card.Text>
         <Button variant="primary" onClick={props.sendDataToRemoteFunction}>

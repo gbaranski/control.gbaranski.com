@@ -8,11 +8,13 @@ async function getRemoteData() {
   return response.json();
 }
 
-async function sendGetRequest(url) {
-  const response = await fetch("http://localhost:3001/getESPData", {
+async function sendGetRequest(queryString) {
+  const url = "http://localhost:3001" + queryString;
+  console.log(url);
+  const response = await fetch(url, {
     method: "GET",
   }).catch((error) => {
-    console.log(error);
+    alert(error);
     return;
   });
   return response;
@@ -21,7 +23,7 @@ async function sendGetRequest(url) {
 function Alarmclock() {
   const [data, setData] = useState(0);
   const [blur, setBlur] = useState(false);
-
+  const [alarmInput, setAlarmInput] = useState("");
   useEffect(() => {
     setInterval(async () => {
       getRemoteData().then((json) => {
@@ -44,6 +46,7 @@ function Alarmclock() {
             ? "ON"
             : "OFF"
         }
+        changeAlarmTime={(e) => setAlarmInput(e.target.value)}
         refreshDataFunction={async () => {
           setBlur(true);
           await getRemoteData();
@@ -53,17 +56,19 @@ function Alarmclock() {
         }}
         sendDataToRemoteFunction={async () => {
           setBlur(true);
-          await sendGetRequest("");
+          await sendGetRequest("/setAlarm?time=" + alarmInput);
           setTimeout(() => setBlur(false), 1000);
         }}
         switchAlarmStateFunction={async () => {
           setBlur(true);
-          await sendGetRequest("");
+          await sendGetRequest(
+            `/setAlarmState?state=${data.alarmState ? "0" : "1"}`
+          );
           setTimeout(() => setBlur(false), 1000);
         }}
         testAlarmFunction={async () => {
           setBlur(true);
-          await sendGetRequest("");
+          await sendGetRequest("/testAlarm");
           setTimeout(() => setBlur(false), 1000);
         }}
         isLoading={blur}
