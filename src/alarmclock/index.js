@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Cardbody from "./card.js";
+import AlarmCard from "./card.js";
 
 async function getRemoteData() {
   const response = await fetch("http://localhost:3001/getESPData", {
@@ -34,7 +34,7 @@ function Alarmclock() {
 
   return (
     <div>
-      <Cardbody
+      <AlarmCard
         temperature={data.temperature}
         humidity={data.humidity}
         remainingTime={data.remainingTime}
@@ -74,7 +74,7 @@ function Alarmclock() {
         isLoading={blur}
       >
         <h1>Grzechu</h1>
-      </Cardbody>
+      </AlarmCard>
     </div>
   );
 }

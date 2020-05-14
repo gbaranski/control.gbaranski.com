@@ -1,15 +1,14 @@
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
-import "/home/gbaranski/code/javascript/control.gbaranski.com/src/bootstrap.min.css";
-import "./styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 import humidityIcon from "./assets/humidity.png";
 import temperatureIcon from "./assets/temperature.png";
 
-function Cardbody(props) {
+function AlarmCard(props) {
   const isLoading = props.isLoading;
 
   return (
@@ -59,4 +58,4 @@ function Cardbody(props) {
   );
 }
 
-export default Cardbody;
+export default AlarmCard;
