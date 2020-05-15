@@ -20,7 +20,7 @@ function AlarmCard(props) {
           <span className="time">{props.alarmTime || "Loading..."}</span>
           <br></br>
           Remaining time:{" "}
-          <span className="time">{String(props.remainingTime).substring(0, 2) + "h " + String(props.remainingTime).substring(3, 5) + "m" || "Loading..."}</span>
+          <span className="time">{props.remainingTime === undefined ? "Loading..." : String(props.remainingTime).substring(0, 2) + "h " + String(props.remainingTime).substring(3, 5) + "m"}</span>
           <br></br>
           Current alarm state: <span className="time">{props.alarmState}</span>
           <br></br>

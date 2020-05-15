@@ -43,8 +43,8 @@ function Alarmclock() {
           data.alarmState === undefined
             ? "Loading..."
             : data.alarmState === "0"
-              ? "ON"
-              : "OFF"
+              ? "OFF"
+              : "ON"
         }
         changeAlarmTime={(e) => setAlarmInput(e.target.value)}
         refreshDataFunction={async () => {
@@ -62,7 +62,7 @@ function Alarmclock() {
         switchAlarmStateFunction={async () => {
           setBlur(true);
           await sendGetRequest(
-            `/setAlarmState?state=${data.alarmState ? "0" : "1"}`
+            `/setAlarmState?state=${data.alarmState === "1" ? "0" : "1"}`
           );
           setTimeout(() => setBlur(false), 1000);
         }}
