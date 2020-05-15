@@ -38,7 +38,7 @@ function Watermixer() {
     <div>
       <WaterCard
         waterState={data.isTimerOn}
-        remainingTime={data.remainingSeconds || "Loading..."}
+        remainingTime={data.remainingSeconds}
         startMixingFunction={async () => {
           setBlur(true);
           await sendGetRequest("/startMixing");
