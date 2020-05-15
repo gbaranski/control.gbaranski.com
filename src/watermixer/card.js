@@ -17,7 +17,7 @@ function AlarmCard(props) {
           <span className="time">
             {props.waterState === undefined
               ? "Loading"
-              : props.waterState
+              : props.waterState === "1"
                 ? "warm"
                 : "cold"}
             <br></br>
