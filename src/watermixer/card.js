@@ -10,7 +10,7 @@ function AlarmCard(props) {
 
   return (
     <Card className={`card center bg-dark ${isLoading ? "blur" : " "}`}>
-      <Card.Header className="header">Alarm clock</Card.Header>
+      <Card.Header className="header">Watermixer</Card.Header>
       <Card.Body>
         <Card.Text>
           Currently water should be:{" "}
