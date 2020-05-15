@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import AlarmCard from "./card.js";
 
 async function getRemoteData() {
-  const response = await fetch("http://localhost:3001/getESPData", {
+  const response = await fetch("https://control.gbaranski.com/getAlarmESPData", {
     method: "GET",
   });
   return response.json();
 }
 
 async function sendGetRequest(queryString) {
-  const url = "http://localhost:3001" + queryString;
+  const url = "https://control.gbaranski.com" + queryString;
   console.log(url);
   const response = await fetch(url, {
     method: "GET",
@@ -43,8 +43,8 @@ function Alarmclock() {
           data.alarmState === undefined
             ? "Loading..."
             : data.alarmState === "0"
-            ? "ON"
-            : "OFF"
+              ? "ON"
+              : "OFF"
         }
         changeAlarmTime={(e) => setAlarmInput(e.target.value)}
         refreshDataFunction={async () => {

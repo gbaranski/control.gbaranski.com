@@ -13,13 +13,16 @@ function AlarmCard(props) {
       <Card.Header className="header">Alarm clock</Card.Header>
       <Card.Body>
         <Card.Text>
-          Currently water should be:
-          {props.waterState === undefined
-            ? "Loading"
-            : props.waterState
-            ? "warm"
-            : "cold"}
-          <br></br>
+          Currently water should be:{" "}
+          <span className="time">
+            {props.waterState === undefined
+              ? "Loading"
+              : props.waterState
+                ? "warm"
+                : "cold"}
+            <br></br>
+          </span>
+
           Remaining time:{" "}
           <span className="time">{props.remainingTime || "Loading..."}</span>
           <br></br>

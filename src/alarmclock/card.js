@@ -24,10 +24,10 @@ function AlarmCard(props) {
           <br></br>
           Current alarm state: <span className="time">{props.alarmState}</span>
           <br></br>
-          <img src={temperatureIcon} alt="temperatureIcon"></img>
+          <img src={temperatureIcon} width="110px" alt="temperatureIcon"></img>
           <span>{props.temperature || "Loading..."}°C</span>
           <br></br>
-          <img src={humidityIcon} width="150px" alt="humidityIcon"></img>
+          <img src={humidityIcon} width="110px" alt="humidityIcon"></img>
           <span>{props.humidity || "Loading..."}%</span>
           <br></br>
           Choose the alarm time here:{" "}
