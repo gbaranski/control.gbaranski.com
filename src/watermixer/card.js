@@ -24,7 +24,7 @@ function AlarmCard(props) {
           </span>
 
           Remaining time:{" "}
-          <span className="time">{props.remainingTime || "Loading..."}</span>
+          <span className="time">{Math.floor((props.remainingTime / 60) % 60) + "minutes" + props.remainingTime % 60 + "seconds" || "Loading..."}</span>
           <br></br>
         </Card.Text>
         <Button variant="primary" onClick={props.startMixingFunction}>
