@@ -27,10 +27,12 @@ function Watermixer() {
 
   useEffect(() => {
     setInterval(async () => {
-      getRemoteData().then((json) => {
-        setData(json);
-        console.log(json)
-      });
+      if (document.hasFocus()) {
+        getRemoteData().then((json) => {
+          setData(json);
+          console.log(json)
+        });
+      }
     }, 2000);
   }, []);
 

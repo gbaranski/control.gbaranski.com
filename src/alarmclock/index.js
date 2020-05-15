@@ -26,9 +26,11 @@ function Alarmclock() {
   const [alarmInput, setAlarmInput] = useState("");
   useEffect(() => {
     setInterval(async () => {
-      getRemoteData().then((json) => {
-        setData(json);
-      });
+      if (document.hasFocus()) {
+        getRemoteData().then((json) => {
+          setData(json);
+        });
+      }
     }, 1000);
   }, []);
 
