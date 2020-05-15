@@ -21,7 +21,7 @@ async function sendGetRequest(queryString) {
 }
 
 function Watermixer() {
-  const [data, setData] = useState(0);
+  const [data, setData] = useState();
 
   const [blur, setBlur] = useState(false);
 
@@ -29,6 +29,7 @@ function Watermixer() {
     setInterval(async () => {
       getRemoteData().then((json) => {
         setData(json);
+        console.log(json)
       });
     }, 2000);
   }, []);
@@ -36,8 +37,8 @@ function Watermixer() {
   return (
     <div>
       <WaterCard
-        waterState={data.alarmState}
-        remainingTime={data.remainingTime}
+        waterState={data.isTimerOn}
+        remainingTime={data.remainingSeconds}
         startMixingFunction={async () => {
           setBlur(true);
           await sendGetRequest("/startMixing");
