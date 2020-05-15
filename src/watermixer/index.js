@@ -21,7 +21,7 @@ async function sendGetRequest(queryString) {
 }
 
 function Watermixer() {
-  const [data, setData] = useState();
+  const [data, setData] = useState(0);
 
   const [blur, setBlur] = useState(false);
 
