@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import WaterCard from "./card.js";
 
 async function getRemoteData() {
-  const response = await fetch("https://control.gbaranski.com/getWaterMixerESPData", {
-    method: "GET",
-  });
+  const response = await fetch(
+    "https://control.gbaranski.com/getWatermixerESPData",
+    {
+      method: "GET",
+    }
+  );
   return response.json();
 }
 
@@ -30,7 +33,7 @@ function Watermixer() {
       if (document.hasFocus()) {
         getRemoteData().then((json) => {
           setData(json);
-          console.log(json)
+          console.log(json);
         });
       }
     }, 2000);
