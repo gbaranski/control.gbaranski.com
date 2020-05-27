@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-function AlarmCard(props) {
+function AlarmCard(props: any) {
   const isLoading = props.isLoading;
 
   return (
@@ -18,13 +18,19 @@ function AlarmCard(props) {
             {props.waterState === undefined
               ? "Loading"
               : props.waterState === "1"
-                ? "warm"
-                : "cold"}
+              ? "warm"
+              : "cold"}
             <br></br>
           </span>
-
           Remaining time:{" "}
-          <span className="time">{props.remainingTime === undefined ? "Loading" : Math.floor((props.remainingTime / 60) % 60) + "minutes" + props.remainingTime % 60 + "seconds"}</span>
+          <span className="time">
+            {props.remainingTime === undefined
+              ? "Loading"
+              : Math.floor((props.remainingTime / 60) % 60) +
+                "minutes" +
+                (props.remainingTime % 60) +
+                "seconds"}
+          </span>
           <br></br>
         </Card.Text>
         <Button variant="primary" onClick={props.startMixingFunction}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import WaterCard from "./card.js";
-import { fetchUrl, getRemoteData } from "../helpers.js";
-import { requestTypes } from "../types.js";
+import WaterCard from "./card";
+import { fetchUrl, getRemoteData } from "../helpers";
+import { requestTypes } from "../types";
 
 function Watermixer() {
   const [data, setData] = useState({

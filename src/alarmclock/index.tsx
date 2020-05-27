@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import AlarmCard from "./card.js";
-import { getRemoteData, fetchUrl } from "../helpers.js";
-import { requestTypes } from "../types.js";
+import AlarmCard from "./card";
+import { getRemoteData, fetchUrl } from "../helpers";
+import { requestTypes } from "../types";
 
 function Alarmclock() {
   const [data, setData] = useState({
@@ -31,7 +31,7 @@ function Alarmclock() {
         remainingTime={data.remainingTime}
         alarmTime={data.alarmTime}
         alarmState={data.alarmState}
-        changeAlarmTime={(e) => setAlarmInput(e.target.value)}
+        changeAlarmTime={(e: any) => setAlarmInput(e.target.value)}
         refreshDataFunction={async () => {
           setBlur(true);
           await getRemoteData(requestTypes.GET_DATA_ALARMCLOCK);

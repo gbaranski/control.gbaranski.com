@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import humidityIcon from "./assets/humidity.png";
 import temperatureIcon from "./assets/temperature.png";
 
-function AlarmCard(props) {
+function AlarmCard(props: any) {
   const isLoading = props.isLoading;
 
   return (
@@ -20,7 +20,14 @@ function AlarmCard(props) {
           <span className="time">{props.alarmTime || "Loading..."}</span>
           <br></br>
           Remaining time:{" "}
-          <span className="time">{props.remainingTime === undefined ? "Loading..." : String(props.remainingTime).substring(0, 2) + "h " + String(props.remainingTime).substring(3, 5) + "m"}</span>
+          <span className="time">
+            {props.remainingTime === undefined
+              ? "Loading..."
+              : String(props.remainingTime).substring(0, 2) +
+                "h " +
+                String(props.remainingTime).substring(3, 5) +
+                "m"}
+          </span>
           <br></br>
           Current alarm state: <span className="time">{props.alarmState}</span>
           <br></br>
