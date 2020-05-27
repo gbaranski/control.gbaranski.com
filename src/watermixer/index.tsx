@@ -1,37 +1,20 @@
 import React, { useState, useEffect } from "react";
 import WaterCard from "./card.js";
-
-async function getRemoteData() {
-  const response = await fetch(
-    "https://control.gbaranski.com/getWatermixerESPData",
-    {
-      method: "GET",
-    }
-  );
-  return response.json();
-}
-
-async function sendGetRequest(queryString) {
-  const url = "https://control.gbaranski.com" + queryString;
-  console.log(url);
-  const response = await fetch(url, {
-    method: "GET",
-  }).catch((error) => {
-    alert(error);
-    return;
-  });
-  return response;
-}
+import { fetchUrl, getRemoteData } from "../helpers.js";
+import { requestTypes } from "../types.js";
 
 function Watermixer() {
-  const [data, setData] = useState(0);
+  const [data, setData] = useState({
+    isTimerOn: false,
+    remainingSeconds: 0,
+  });
 
   const [blur, setBlur] = useState(false);
 
   useEffect(() => {
     setInterval(async () => {
       if (document.hasFocus()) {
-        getRemoteData().then((json) => {
+        getRemoteData(requestTypes.GET_DATA_WATERMIXER).then((json) => {
           setData(json);
           console.log(json);
         });
@@ -46,7 +29,8 @@ function Watermixer() {
         remainingTime={data.remainingSeconds}
         startMixingFunction={async () => {
           setBlur(true);
-          await sendGetRequest("/startMixing");
+          const headers = new Headers();
+          await fetchUrl("/startMixing", headers);
           setTimeout(() => {
             setBlur(false);
           }, 1000);
