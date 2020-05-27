@@ -14,7 +14,7 @@ export async function fetchUrl(queryString: string, headers: Headers) {
 }
 
 export async function getRemoteData(requestType: requestTypes) {
-  const response = await fetch(`https://control.gbaranski.com/${requestType}`, {
+  const response = await fetch(`https://control.gbaranski.com${requestType}`, {
     method: "POST",
   });
   return response.json();
