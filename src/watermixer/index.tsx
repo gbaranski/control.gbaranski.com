@@ -5,8 +5,8 @@ import { requestTypes } from "../types";
 
 function Watermixer() {
   const [data, setData] = useState({
-    isTimerOn: false,
-    remainingSeconds: 0,
+    isTimerOn: undefined,
+    remainingSeconds: undefined,
   });
 
   const [blur, setBlur] = useState(false);
