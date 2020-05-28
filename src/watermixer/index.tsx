@@ -14,12 +14,12 @@ function Watermixer() {
   useEffect(() => {
     setInterval(async () => {
       if (document.hasFocus()) {
-        getRemoteData(requestTypes.GET_DATA_WATERMIXER).then((json) => {
-          setData(json);
-          console.log(json);
+        getRemoteData(requestTypes.GET_DATA_WATERMIXER).then((response) => {
+          setData(JSON.parse(response));
+          console.log(JSON.parse(response));
         });
       }
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (

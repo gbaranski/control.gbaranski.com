@@ -3,6 +3,13 @@ import AlarmCard from "./card";
 import { getRemoteData, fetchUrl } from "../helpers";
 import { requestTypes } from "../types";
 
+function askForCredentials() {
+  const username = prompt("Whats your username?", "");
+  const passsword = prompt("Whats your password?", "");
+  localStorage.setItem("username", username || "");
+  localStorage.setItem("password", passsword || "");
+}
+
 function Alarmclock() {
   const [data, setData] = useState({
     temperature: 0,
@@ -17,7 +24,8 @@ function Alarmclock() {
     setInterval(async () => {
       if (document.hasFocus()) {
         getRemoteData(requestTypes.GET_DATA_ALARMCLOCK).then((json) => {
-          setData(json);
+          setData(JSON.parse(json));
+          console.log(JSON.parse(json));
         });
       }
     }, 1000);
@@ -43,21 +51,24 @@ function Alarmclock() {
           setBlur(true);
           const headers = new Headers();
           headers.append("time", alarmInput);
-          await fetchUrl("/setAlarm", headers);
+          await fetchUrl("/api/alarmclock/setTime", headers);
           setTimeout(() => setBlur(false), 1000);
         }}
         switchAlarmStateFunction={async () => {
           setBlur(true);
           const headers = new Headers();
           headers.append("state", String(data.alarmState ? 1 : 0));
-          await fetchUrl("/setAlarmState", headers);
+          await fetchUrl("/api/alarmclock/switchState", headers);
           setTimeout(() => setBlur(false), 1000);
         }}
         testAlarmFunction={async () => {
           setBlur(true);
           const headers = new Headers();
-          await fetchUrl("/testAlarm", headers);
+          await fetchUrl("/api/alarmclock/testSiren", headers);
           setTimeout(() => setBlur(false), 1000);
+        }}
+        askCredentialsFunction={() => {
+          askForCredentials();
         }}
         isLoading={blur}
       ></AlarmCard>

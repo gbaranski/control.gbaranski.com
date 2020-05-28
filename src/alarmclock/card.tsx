@@ -60,6 +60,9 @@ function AlarmCard(props: any) {
         <div className="loader">
           <ClipLoader size={150} color="#123abc" loading={isLoading} />
         </div>
+        <Button variant="primary" onClick={props.askCredentialsFunction}>
+          Ask for password
+        </Button>
       </Card.Body>
     </Card>
   );
