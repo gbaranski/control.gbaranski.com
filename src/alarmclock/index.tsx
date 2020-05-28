@@ -21,11 +21,20 @@ function Alarmclock() {
   const [blur, setBlur] = useState(false);
   const [alarmInput, setAlarmInput] = useState("");
   useEffect(() => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    console.log(localStorage.getItem("username"));
+    if (
+      localStorage.getItem("username") === null ||
+      localStorage.getItem("password")
+    ) {
+      alert("Please set username and password.");
+    }
     setInterval(async () => {
       if (document.hasFocus()) {
         getRemoteData(requestTypes.GET_DATA_ALARMCLOCK).then((json) => {
-          setData(JSON.parse(json));
-          console.log(JSON.parse(json));
+          setData(json);
+          console.log(json);
         });
       }
     }, 1000);

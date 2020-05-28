@@ -21,6 +21,12 @@ export async function getRemoteData(requestType: requestTypes) {
   const headers = new Headers();
   const username = localStorage.getItem("username");
   const password = localStorage.getItem("password");
+  if (
+    localStorage.getItem("username") === undefined ||
+    localStorage.getItem("password") === undefined
+  ) {
+    return;
+  }
   headers.append("username", username || "");
   headers.append("password", password || "");
 
@@ -28,5 +34,15 @@ export async function getRemoteData(requestType: requestTypes) {
     method: "POST",
     headers,
   });
-  return response.json();
+  if (response.ok) {
+    return JSON.parse(await response.json());
+  } else {
+    return {
+      temperature: "?",
+      humidity: "?",
+      remainingTime: "?",
+      alarmTime: "?",
+      alarmState: "?",
+    };
+  }
 }

@@ -15,8 +15,8 @@ function Watermixer() {
     setInterval(async () => {
       if (document.hasFocus()) {
         getRemoteData(requestTypes.GET_DATA_WATERMIXER).then((response) => {
-          setData(JSON.parse(response));
-          console.log(JSON.parse(response));
+          setData(response);
+          console.log(response);
         });
       }
     }, 1000);
@@ -30,7 +30,7 @@ function Watermixer() {
         startMixingFunction={async () => {
           setBlur(true);
           const headers = new Headers();
-          await fetchUrl("/startMixing", headers);
+          await fetchUrl("/api/watermixer/start", headers);
           setTimeout(() => {
             setBlur(false);
           }, 1000);
