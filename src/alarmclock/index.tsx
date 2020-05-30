@@ -23,7 +23,7 @@ function Alarmclock() {
   useEffect(() => {
     if (
       localStorage.getItem("username") === null ||
-      localStorage.getItem("password")
+      localStorage.getItem("password") === null
     ) {
       alert("Please set username and password.");
     }
