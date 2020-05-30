@@ -21,9 +21,6 @@ function Alarmclock() {
   const [blur, setBlur] = useState(false);
   const [alarmInput, setAlarmInput] = useState("");
   useEffect(() => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-    console.log(localStorage.getItem("username"));
     if (
       localStorage.getItem("username") === null ||
       localStorage.getItem("password")
