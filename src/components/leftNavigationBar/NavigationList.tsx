@@ -29,9 +29,19 @@ const primaryText = (index: number) => {
   if (index === 0) {
     return 'Dashboard';
   } else {
-    console.log(Devices);
-    return [Object.keys(Devices)[index]];
+    let returnText = [Object.keys(Devices)[index - 1]];
+    if (returnText[0] === Devices.Gate) {
+      console.log('isgate');
+      returnText[0] = `${Devices.Gate} & ${Devices.Garage}`;
+    }
+    return returnText;
   }
+};
+
+const disabledItems = [Devices.Gate];
+
+const checkIfDisabledItem = (index: number) => {
+  return disabledItems.includes(Object.values(Devices)[index - 1]);
 };
 
 export const mainListItems = (props: any) => {
@@ -39,6 +49,7 @@ export const mainListItems = (props: any) => {
     <ListItem
       button
       selected={props.currentlyOpen === index}
+      disabled={checkIfDisabledItem(index)}
       onClick={() => props.setPage(index)}>
       <ListItemIcon>
         <Icons index={index} />

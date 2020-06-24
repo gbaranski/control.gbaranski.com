@@ -114,7 +114,7 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
             color="inherit"
             noWrap
             className={classes.title}>
-            Dashboard
+            Alarmclock
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -140,13 +140,13 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Status */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <Status />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Recent Requests */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Requests />
