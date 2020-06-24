@@ -80,14 +80,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard(props: {setPage: any}) {
+export default function Dashboard(props: {
+  setPage: any;
+  open: boolean;
+  setOpen: any;
+}) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
   const handleDrawerClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -96,7 +99,7 @@ export default function Dashboard(props: {setPage: any}) {
       <CssBaseline />
       <AppBar
         position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}>
+        className={clsx(classes.appBar, props.open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -105,7 +108,7 @@ export default function Dashboard(props: {setPage: any}) {
             onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
-              open && classes.menuButtonHidden,
+              props.open && classes.menuButtonHidden,
             )}>
             <MenuIcon />
           </IconButton>
@@ -125,7 +128,7 @@ export default function Dashboard(props: {setPage: any}) {
         </Toolbar>
       </AppBar>
       <LeftNavigationBar
-        open={open}
+        open={props.open}
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
         currentlyOpen={0}
