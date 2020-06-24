@@ -16,7 +16,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import LeftNavigationBar from '../../components/leftNavigationBar';
 import Copyright from '../../components/copyright';
 import Chart from '../dashboard/Chart';
-import Status from '../dashboard/Status';
+import {mdiThermometer} from '@mdi/js';
+import {mdiWater} from '@mdi/js';
+import {mdiClock} from '@mdi/js';
+import Icon from '@mdi/react';
 import Requests from '../dashboard/Requets';
 import DeviceInfo from '../../components/deviceInfo';
 
@@ -93,14 +96,26 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
 
   const deviceInfo = [
     {
-      title: 'chuj123',
-      value: 1,
-      icon: undefined,
+      title: 'Temperature',
+      description: '23.7°C',
+      icon: <Icon path={mdiThermometer} size={2} color="rgb(117,117,117)" />,
     },
     {
-      title: 'test2',
-      value: 2,
-      icon: undefined,
+      title: 'Humidity',
+      description: '57.3%',
+      icon: <Icon path={mdiWater} size={2} color="rgb(117,117,117)" />,
+    },
+    {
+      title: 'Remaining time',
+      description: '5h 12m',
+      icon: (
+        <Icon
+          path={mdiClock}
+          size={1.5}
+          color="rgb(117,117,117)"
+          style={{marginLeft: '8%'}}
+        />
+      ),
     },
   ];
 
@@ -148,23 +163,18 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Chart />
               </Paper>
             </Grid>
-            {/* Status */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <DeviceInfo data={deviceInfo} />
               </Paper>
             </Grid>
-            {/* Recent Requests */}
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Requests />
-              </Paper>
+              <Paper className={classes.paper}>{/* <deviceManager /> */}</Paper>
             </Grid>
           </Grid>
           <Box pt={4}>
