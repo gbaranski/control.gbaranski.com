@@ -19,9 +19,11 @@ import Chart from '../dashboard/Chart';
 import {mdiThermometer} from '@mdi/js';
 import {mdiWater} from '@mdi/js';
 import {mdiClock} from '@mdi/js';
+import {mdiAlarm} from '@mdi/js';
 import Icon from '@mdi/react';
-import Requests from '../dashboard/Requets';
+import DeviceManager from '../../components/deviceManager';
 import DeviceInfo from '../../components/deviceInfo';
+import green from '@material-ui/core/colors/green';
 
 const drawerWidth = 240;
 
@@ -82,16 +84,39 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  buttonSuccess: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
+  },
+  wrapper: {
+    margin: theme.spacing(1),
+    position: 'relative',
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 }));
 
 function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   const classes = useStyles();
+
   const handleDrawerOpen = () => {
     props.setOpen(true);
   };
   const handleDrawerClose = () => {
     props.setOpen(false);
   };
+
+  const handleTestAlarm = () => {};
+  const handleSetAlarmTime = () => {};
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const deviceInfo = [
@@ -111,6 +136,19 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
       icon: (
         <Icon
           path={mdiClock}
+          size={1.5}
+          color="rgb(117,117,117)"
+          style={{marginLeft: '8%'}}
+        />
+      ),
+    },
+
+    {
+      title: 'Alarm time',
+      description: '07:45',
+      icon: (
+        <Icon
+          path={mdiAlarm}
           size={1.5}
           color="rgb(117,117,117)"
           style={{marginLeft: '8%'}}
@@ -174,7 +212,20 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
               </Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>{/* <deviceManager /> */}</Paper>
+              <Paper className={classes.paper}>
+                <DeviceManager
+                  data={[
+                    {
+                      onClick: handleTestAlarm,
+                      innerText: 'Test alarm',
+                    },
+                    {
+                      onClick: handleSetAlarmTime,
+                      innerText: 'Set alarm time',
+                    },
+                  ]}
+                />
+              </Paper>
             </Grid>
           </Grid>
           <Box pt={4}>
