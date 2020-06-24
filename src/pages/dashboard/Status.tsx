@@ -1,6 +1,6 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
-import Title from './Title';
+import Title from '../../components/title';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import List from '@material-ui/core/List';

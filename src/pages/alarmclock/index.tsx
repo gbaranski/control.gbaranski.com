@@ -18,6 +18,7 @@ import Copyright from '../../components/copyright';
 import Chart from '../dashboard/Chart';
 import Status from '../dashboard/Status';
 import Requests from '../dashboard/Requets';
+import DeviceInfo from '../../components/deviceInfo';
 
 const drawerWidth = 240;
 
@@ -90,6 +91,19 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const deviceInfo = [
+    {
+      title: 'chuj123',
+      value: 1,
+      icon: undefined,
+    },
+    {
+      title: 'test2',
+      value: 2,
+      icon: undefined,
+    },
+  ];
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -143,7 +157,7 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
             {/* Status */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Status />
+                <DeviceInfo data={deviceInfo} />
               </Paper>
             </Grid>
             {/* Recent Requests */}
