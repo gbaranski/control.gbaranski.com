@@ -72,26 +72,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -113,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props: {setPage: any}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -161,6 +141,8 @@ export default function Dashboard() {
         open={open}
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
+        currentlyOpen={0}
+        setPage={props.setPage}
       />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

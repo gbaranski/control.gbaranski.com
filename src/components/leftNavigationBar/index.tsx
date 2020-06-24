@@ -40,11 +40,12 @@ interface props {
   open: boolean;
   handleDrawerOpen: any;
   handleDrawerClose: any;
+  currentlyOpen: number;
+  setPage: any;
 }
 
 function LeftNavigationBar(props: props) {
   const classes = useStyles();
-
   return (
     <Drawer
       variant="permanent"
@@ -61,7 +62,12 @@ function LeftNavigationBar(props: props) {
         </IconButton>
       </div>
       <Divider />
-      <List>{mainListItems}</List>
+      <List>
+        {mainListItems({
+          setPage: props.setPage,
+          currentlyOpen: props.currentlyOpen,
+        })}
+      </List>
       <Divider />
       <List>{secondaryListItems}</List>
     </Drawer>

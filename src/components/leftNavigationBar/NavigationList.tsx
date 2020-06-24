@@ -11,34 +11,42 @@ import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
-export const mainListItems = (
-  <div>
-    <ListItem button selected>
+const Icons = (props: {index: number}) => {
+  switch (props.index) {
+    default:
+    case 0:
+      return <DashboardIcon />;
+    case 1:
+      return <AlarmIcon />;
+    case 2:
+      return <OpacityIcon />;
+    case 3:
+      return <SettingsRemoteIcon />;
+  }
+};
+
+const primaryText = (index: number) => {
+  if (index === 0) {
+    return 'Dashboard';
+  } else {
+    console.log(Devices);
+    return [Object.keys(Devices)[index]];
+  }
+};
+
+export const mainListItems = (props: any) => {
+  return [0, 1, 2, 3].map((_element, index) => (
+    <ListItem
+      button
+      selected={props.currentlyOpen === index}
+      onClick={() => props.setPage(index)}>
       <ListItemIcon>
-        <DashboardIcon />
+        <Icons index={index} />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary={primaryText(index)} />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AlarmIcon />
-      </ListItemIcon>
-      <ListItemText primary={Devices.Alarmclock} />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <OpacityIcon />
-      </ListItemIcon>
-      <ListItemText primary={Devices.Watermixer} />
-    </ListItem>
-    <ListItem button disabled>
-      <ListItemIcon>
-        <SettingsRemoteIcon />
-      </ListItemIcon>
-      <ListItemText primary={Devices.Gate + ' & ' + Devices.Garage} />
-    </ListItem>
-  </div>
-);
+  ));
+};
 
 export const secondaryListItems = (
   <div>
