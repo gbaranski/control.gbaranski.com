@@ -29,12 +29,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const drawerWidth = 240;
 
@@ -127,8 +129,34 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
 
   const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleTestAlarm = () => {};
+  const handleSwitchState = () => {
+    console.log('Switching alamr state');
+  };
+
+  const handleSendAlarmTime = () => {
+    console.log(selectedDate);
+    setTimeDialogOpen(false);
+    setSnackbarMessage('Sending!');
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+      setTimeout(() => {
+        setSnackbarMessage('Send!');
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          setSnackbarOpen(false);
+        }, 1000);
+      }, 1000);
+    }, 1000);
+  };
+
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
   };
@@ -208,11 +236,38 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
             <Button onClick={() => setTimeDialogOpen(false)} color="primary">
               Cancel
             </Button>
-            <Button onClick={() => setTimeDialogOpen(false)} color="primary">
+            <Button onClick={() => handleSendAlarmTime()} color="primary">
               Save
             </Button>
           </DialogActions>
         </Dialog>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+          message={snackbarMessage}
+          action={
+            <React.Fragment>
+              <Button
+                color="secondary"
+                size="small"
+                onClick={handleSnackbarClose}>
+                UNDO
+              </Button>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleSnackbarClose}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
 
         <CssBaseline />
 
@@ -278,6 +333,10 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
                       {
                         onClick: handleSetAlarmTime,
                         innerText: 'Set alarm time',
+                      },
+                      {
+                        onClick: handleSwitchState,
+                        innerText: 'Switch alarm state',
                       },
                     ]}
                   />
