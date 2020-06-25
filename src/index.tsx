@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
 import Alarmclock from './pages/alarmclock';
+import Watermixer from './pages/watermixer';
 
 const App = () => {
   const [currentPage, setPage] = useState(0);
@@ -14,6 +15,8 @@ const App = () => {
       return <Dashboard setPage={setPage} open={open} setOpen={setOpen} />;
     case 1:
       return <Alarmclock setPage={setPage} open={open} setOpen={setOpen} />;
+    case 2:
+      return <Watermixer setPage={setPage} open={open} setOpen={setOpen} />;
   }
 };
 

@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
+function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => {
@@ -354,4 +354,4 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   );
 }
 
-export default Alarmclock;
+export default Watermixer;
