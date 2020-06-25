@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,6 +24,17 @@ import Icon from '@mdi/react';
 import DeviceManager from '../../components/deviceManager';
 import DeviceInfo from '../../components/deviceInfo';
 import green from '@material-ui/core/colors/green';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+} from '@material-ui/pickers';
+import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns';
 
 const drawerWidth = 240;
 
@@ -114,8 +125,17 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
     props.setOpen(false);
   };
 
+  const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
   const handleTestAlarm = () => {};
-  const handleSetAlarmTime = () => {};
+  const handleDateChange = (date: any) => {
+    setSelectedDate(date);
+  };
+
+  const handleSetAlarmTime = () => {
+    setTimeDialogOpen(true);
+  };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -158,82 +178,119 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   ];
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, props.open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              props.open && classes.menuButtonHidden,
-            )}>
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}>
-            Alarmclock
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <LeftNavigationBar
-        open={props.open}
-        handleDrawerClose={handleDrawerClose}
-        handleDrawerOpen={handleDrawerOpen}
-        currentlyOpen={1}
-        setPage={props.setPage}
-      />
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <div className={classes.root}>
+        <Dialog
+          open={timeDialogOpen}
+          onClose={() => setTimeDialogOpen(false)}
+          aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address
+              here. We will send updates occasionally.
+            </DialogContentText>
+            <KeyboardTimePicker
+              margin="normal"
+              id="time-picker"
+              label="Time picker"
+              value={selectedDate}
+              required
+              onChange={handleDateChange}
+              minutesStep={5}
+              ampm={false}
+              KeyboardButtonProps={{
+                'aria-label': 'change time',
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setTimeDialogOpen(false)} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={() => setTimeDialogOpen(false)} color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <CssBaseline />
+
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, props.open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                props.open && classes.menuButtonHidden,
+              )}>
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}>
+              Alarmclock
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <LeftNavigationBar
+          open={props.open}
+          handleDrawerClose={handleDrawerClose}
+          handleDrawerOpen={handleDrawerOpen}
+          currentlyOpen={1}
+          setPage={props.setPage}
+        />
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={fixedHeightPaper}>
+                  <Chart />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper className={fixedHeightPaper}>
+                  <DeviceInfo data={deviceInfo} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <DeviceManager
+                    data={[
+                      {
+                        onClick: handleTestAlarm,
+                        innerText: 'Test alarm',
+                      },
+                      {
+                        onClick: handleSetAlarmTime,
+                        innerText: 'Set alarm time',
+                      },
+                    ]}
+                  />
+                </Paper>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <DeviceInfo data={deviceInfo} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <DeviceManager
-                  data={[
-                    {
-                      onClick: handleTestAlarm,
-                      innerText: 'Test alarm',
-                    },
-                    {
-                      onClick: handleSetAlarmTime,
-                      innerText: 'Set alarm time',
-                    },
-                  ]}
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
+            <Box pt={4}>
+              <Copyright />
+            </Box>
+          </Container>
+        </main>
+      </div>
+    </MuiPickersUtilsProvider>
   );
 }
 
