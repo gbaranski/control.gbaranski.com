@@ -64,3 +64,23 @@ export async function testSiren() {
     return res.ok;
   }
 }
+
+export async function getWatermixerData() {
+  const alarmClockDataUrl = `${remoteUrl}/watermixer/getData`;
+  const res = await fetch(alarmClockDataUrl, {
+    method: 'POST',
+    headers: getHeaders(),
+  });
+  const json = await res.json();
+
+  console.log(JSON.parse(await json));
+  return await JSON.parse(json);
+}
+
+export async function startMixing() {
+  const res = await fetch(`${remoteUrl}/watermixer/start`, {
+    method: 'POST',
+    headers: getHeaders(),
+  });
+  return res.ok;
+}

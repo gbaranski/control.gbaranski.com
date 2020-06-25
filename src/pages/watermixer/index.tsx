@@ -26,6 +26,9 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
 import Snackbar from '@material-ui/core/Snackbar';
+import {WatermixerData} from '@gbaranski/types';
+import {useInterval} from '../../helpers';
+import {getWatermixerData, startMixing} from '../../requests';
 
 const drawerWidth = 240;
 const pageIndex = 2;
@@ -119,36 +122,39 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [data, setData] = React.useState<WatermixerData | undefined>(undefined);
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  const handleStartMixing = () => {
-    setSnackbarMessage('Sending!');
+  const handleStartMixing = async () => {
+    const res = await startMixing();
+    if (res) {
+      setSnackbarMessage('Success mixing water!');
+    } else {
+      setSnackbarMessage('Success mixing water!');
+    }
     setSnackbarOpen(true);
     setTimeout(() => {
       setSnackbarOpen(false);
-      setTimeout(() => {
-        setSnackbarMessage('Send!');
-        setSnackbarOpen(true);
-        setTimeout(() => {
-          setSnackbarOpen(false);
-        }, 1000);
-      }, 1000);
     }, 1000);
   };
+
+  useInterval(async () => {
+    setData(await getWatermixerData());
+  }, 1000);
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const deviceInfo = [
     {
       title: 'Current state',
-      description: 'Water should be cold',
+      description: `Water should be ${data?.isTimerOn ? 'warm' : 'cold'}`,
       icon: <Icon path={mdiWater} size={2} color="rgb(117,117,117)" />,
     },
     {
       title: 'Remaining time',
-      description: '5m 12s',
+      description: data?.remainingSeconds,
       icon: (
         <Icon
           path={mdiClock}
