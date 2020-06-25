@@ -39,7 +39,11 @@ import DateFnsUtils from '@date-io/date-fns';
 import Snackbar from '@material-ui/core/Snackbar';
 import {AlarmclockData} from '@gbaranski/types';
 import {useInterval} from '../../helpers';
-import {getAlarmClockData, sendTimeRequest} from '../../requests';
+import {
+  getAlarmClockData,
+  sendTimeRequest,
+  switchAlarmState,
+} from '../../requests';
 
 const drawerWidth = 240;
 const pageIndex = 1;
@@ -146,14 +150,32 @@ function Alarmclock(props: {
   };
 
   const handleTestAlarm = () => {};
-  const handleSwitchState = () => {
+  const handleSwitchState = async () => {
     console.log('Switching alamr state');
+    if (data) {
+      await switchAlarmState(data.alarmState);
+      setSnackbarMessage('Success changing alarm state!');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 1000);
+    } else {
+      setSnackbarMessage('Something went wrong!');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 1000);
+    }
   };
 
   const handleSendAlarmTime = async () => {
     setTimeDialogOpen(false);
-    await sendTimeRequest(selectedDate);
-    setSnackbarMessage('Success changing alarm time!');
+    const ok = await sendTimeRequest(selectedDate);
+    if (ok) {
+      setSnackbarMessage('Success changing alarm time!');
+    } else {
+      setSnackbarMessage('Failed during changing alarm time!');
+    }
     setSnackbarOpen(true);
     setTimeout(() => {
       setSnackbarOpen(false);
@@ -200,7 +222,8 @@ function Alarmclock(props: {
 
     {
       title: 'Alarm time',
-      description: data?.alarmTime || '',
+      description:
+        data?.alarmTime + `${data?.alarmState ? ' ON' : ' OFF'}` || '',
       icon: (
         <Icon
           path={mdiAlarm}

@@ -40,3 +40,14 @@ export async function sendTimeRequest(date: Date) {
   });
   return res.ok;
 }
+
+export async function switchAlarmState(state: number) {
+  const headers = getHeaders();
+
+  headers.append('state', String(+!state));
+  const res = await fetch(`${remoteUrl}/alarmclock/switchState`, {
+    method: 'POST',
+    headers,
+  });
+  return res.ok;
+}
