@@ -128,22 +128,13 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
     props.setOpen(false);
   };
 
-  const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  const handleTestAlarm = () => {};
-  const handleSwitchState = () => {
-    console.log('Switching alamr state');
-  };
-
-  const handleSendAlarmTime = () => {
-    console.log(selectedDate);
-    setTimeDialogOpen(false);
+  const handleStartMixing = () => {
     setSnackbarMessage('Sending!');
     setSnackbarOpen(true);
     setTimeout(() => {
@@ -158,46 +149,20 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
     }, 1000);
   };
 
-  const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-  };
-
-  const handleSetAlarmTime = () => {
-    setTimeDialogOpen(true);
-  };
-
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const deviceInfo = [
     {
-      title: 'Temperature',
-      description: '23.7°C',
-      icon: <Icon path={mdiThermometer} size={2} color="rgb(117,117,117)" />,
-    },
-    {
-      title: 'Humidity',
-      description: '57.3%',
+      title: 'Current state',
+      description: 'Water should be cold',
       icon: <Icon path={mdiWater} size={2} color="rgb(117,117,117)" />,
     },
     {
       title: 'Remaining time',
-      description: '5h 12m',
+      description: '5m 12s',
       icon: (
         <Icon
           path={mdiClock}
-          size={1.5}
-          color="rgb(117,117,117)"
-          style={{marginLeft: '8%'}}
-        />
-      ),
-    },
-
-    {
-      title: 'Alarm time',
-      description: '07:45',
-      icon: (
-        <Icon
-          path={mdiAlarm}
           size={1.5}
           color="rgb(117,117,117)"
           style={{marginLeft: '8%'}}
@@ -209,39 +174,6 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.root}>
-        <Dialog
-          open={timeDialogOpen}
-          onClose={() => setTimeDialogOpen(false)}
-          aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText>
-            <KeyboardTimePicker
-              margin="normal"
-              id="time-picker"
-              label="Time picker"
-              value={selectedDate}
-              required
-              onChange={handleDateChange}
-              minutesStep={5}
-              ampm={false}
-              KeyboardButtonProps={{
-                'aria-label': 'change time',
-              }}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setTimeDialogOpen(false)} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={() => handleSendAlarmTime()} color="primary">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
         <Snackbar
           anchorOrigin={{
             vertical: 'top',
@@ -313,12 +245,7 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <Chart />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={8} lg={12}>
                 <Paper className={fixedHeightPaper}>
                   <DeviceInfo data={deviceInfo} />
                 </Paper>
@@ -328,16 +255,8 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
                   <DeviceManager
                     data={[
                       {
-                        onClick: handleTestAlarm,
-                        innerText: 'Test alarm',
-                      },
-                      {
-                        onClick: handleSetAlarmTime,
-                        innerText: 'Set alarm time',
-                      },
-                      {
-                        onClick: handleSwitchState,
-                        innerText: 'Switch alarm state',
+                        onClick: handleStartMixing,
+                        innerText: 'Start mixing',
                       },
                     ]}
                   />
