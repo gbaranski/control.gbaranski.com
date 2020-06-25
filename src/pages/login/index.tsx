@@ -11,6 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import {login} from '../../requests';
 
 function Copyright() {
   return (
@@ -43,11 +47,63 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginPage() {
+export default function LoginPage(props: {
+  setAttemptedToLogin: any;
+  setLoggedIn: any;
+}) {
   const classes = useStyles();
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
+    const res = await login();
+    console.log(res);
+    if (res) {
+      props.setAttemptedToLogin(true);
+      props.setLoggedIn(true);
+    } else {
+      setSnackbarMessage('Failed logging in');
+      setSnackbarOpen(true);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        action={
+          <React.Fragment>
+            <Button
+              color="secondary"
+              size="small"
+              onClick={handleSnackbarClose}>
+              UNDO
+            </Button>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleSnackbarClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -56,7 +112,10 @@ export default function LoginPage() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          autoComplete="off"
+          onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -65,6 +124,8 @@ export default function LoginPage() {
             id="email"
             label="Username"
             name="email"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             autoFocus
           />
           <TextField
@@ -76,13 +137,16 @@ export default function LoginPage() {
             label="Password"
             type="password"
             id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}>
+            className={classes.submit}
+            onClick={handleSubmit}>
             Sign In
           </Button>
         </form>
