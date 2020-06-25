@@ -9,7 +9,6 @@ interface DeviceManagerButton {
 }
 
 function CreateButtons(props: any) {
-  console.log(props.abc);
   return props.data.map((button: DeviceManagerButton) => (
     <Button color="primary" onClick={button.onClick} variant="outlined">
       {button.innerText}

@@ -31,7 +31,6 @@ const primaryText = (index: number) => {
   } else {
     let returnText = [Object.keys(Devices)[index - 1]];
     if (returnText[0] === Devices.Gate) {
-      console.log('isgate');
       returnText[0] = `${Devices.Gate} & ${Devices.Garage}`;
     }
     return returnText;

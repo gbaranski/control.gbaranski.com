@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,6 +37,9 @@ import {
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
 import Snackbar from '@material-ui/core/Snackbar';
+import {AlarmclockData} from '@gbaranski/types';
+import {useInterval} from '../../helpers';
+import {getAlarmClockData, sendTimeRequest} from '../../requests';
 
 const drawerWidth = 240;
 const pageIndex = 1;
@@ -118,7 +121,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
+function Alarmclock(props: {
+  setPage: any;
+  open: boolean;
+  setOpen: any;
+  data: AlarmclockData | undefined;
+}) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => {
@@ -128,6 +136,7 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
     props.setOpen(false);
   };
 
+  const [data, setData] = React.useState<AlarmclockData | undefined>(undefined);
   const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -141,20 +150,13 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
     console.log('Switching alamr state');
   };
 
-  const handleSendAlarmTime = () => {
-    console.log(selectedDate);
+  const handleSendAlarmTime = async () => {
     setTimeDialogOpen(false);
-    setSnackbarMessage('Sending!');
+    await sendTimeRequest(selectedDate);
+    setSnackbarMessage('Success changing alarm time!');
     setSnackbarOpen(true);
     setTimeout(() => {
       setSnackbarOpen(false);
-      setTimeout(() => {
-        setSnackbarMessage('Send!');
-        setSnackbarOpen(true);
-        setTimeout(() => {
-          setSnackbarOpen(false);
-        }, 1000);
-      }, 1000);
     }, 1000);
   };
 
@@ -166,22 +168,26 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
     setTimeDialogOpen(true);
   };
 
+  useInterval(async () => {
+    setData(await getAlarmClockData());
+  }, 1000);
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const deviceInfo = [
     {
       title: 'Temperature',
-      description: '23.7°C',
+      description: data?.temperature + '°C' || '',
       icon: <Icon path={mdiThermometer} size={2} color="rgb(117,117,117)" />,
     },
     {
       title: 'Humidity',
-      description: '57.3%',
+      description: data?.humidity + '%' || '',
       icon: <Icon path={mdiWater} size={2} color="rgb(117,117,117)" />,
     },
     {
       title: 'Remaining time',
-      description: '5h 12m',
+      description: data?.remainingTime || '',
       icon: (
         <Icon
           path={mdiClock}
@@ -194,7 +200,7 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
 
     {
       title: 'Alarm time',
-      description: '07:45',
+      description: data?.alarmTime || '',
       icon: (
         <Icon
           path={mdiAlarm}

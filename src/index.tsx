@@ -6,7 +6,9 @@ import Alarmclock from './pages/alarmclock';
 import Watermixer from './pages/watermixer';
 import {isMobile} from 'react-device-detect';
 import LoginLoading from './pages/loginLoading';
-import {login} from './requests';
+import {login, getAlarmClockData} from './requests';
+import {useInterval} from './helpers';
+import {AlarmclockData} from '@gbaranski/types';
 
 const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
   const res = login();
@@ -21,6 +23,7 @@ const App = () => {
   const [isAttemptedToLogin, setAttemptedToLogin] = useState(false);
   const [currentPage, setPage] = useState(0);
   const [open, setOpen] = useState(true);
+  const [alarmClockData, setAlarmClockData] = useState<AlarmclockData>();
 
   if (!isAttemptedToLogin) {
     getLoginPage(setLoggedIn, setAttemptedToLogin);
@@ -50,7 +53,12 @@ const App = () => {
       );
     case 1:
       return (
-        <Alarmclock setPage={handleSetPage} open={open} setOpen={setOpen} />
+        <Alarmclock
+          setPage={handleSetPage}
+          open={open}
+          setOpen={setOpen}
+          data={alarmClockData}
+        />
       );
     case 2:
       return (
