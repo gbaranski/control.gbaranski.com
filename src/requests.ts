@@ -51,3 +51,16 @@ export async function switchAlarmState(state: number) {
   });
   return res.ok;
 }
+
+export async function testSiren() {
+  const headers = getHeaders();
+  if (headers.get('username') !== 'gbaranski') {
+    return false;
+  } else {
+    const res = await fetch(`${remoteUrl}/alarmclock/testSiren`, {
+      method: 'POST',
+      headers,
+    });
+    return res.ok;
+  }
+}

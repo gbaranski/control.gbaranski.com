@@ -43,6 +43,7 @@ import {
   getAlarmClockData,
   sendTimeRequest,
   switchAlarmState,
+  testSiren,
 } from '../../requests';
 
 const drawerWidth = 240;
@@ -149,7 +150,20 @@ function Alarmclock(props: {
     setSnackbarOpen(false);
   };
 
-  const handleTestAlarm = () => {};
+  const handleTestAlarm = async () => {
+    const res = await testSiren();
+    if (res) {
+      setSnackbarMessage('Success testing siren!');
+    } else {
+      setSnackbarMessage(
+        "Server is down, or You don't have permisison for that :)!",
+      );
+    }
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+    }, 1000);
+  };
   const handleSwitchState = async () => {
     console.log('Switching alamr state');
     if (data) {
