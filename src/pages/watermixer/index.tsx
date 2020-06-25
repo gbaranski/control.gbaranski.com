@@ -39,7 +39,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Snackbar from '@material-ui/core/Snackbar';
 
 const drawerWidth = 240;
-const pageIndex = 1;
+const pageIndex = 2;
 
 const useStyles = makeStyles((theme) => ({
   root: {

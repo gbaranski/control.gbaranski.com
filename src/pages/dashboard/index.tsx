@@ -20,6 +20,7 @@ import LeftNavigationBar from '../../components/leftNavigationBar';
 import Copyright from '../../components/copyright';
 
 const drawerWidth = 240;
+const pageIndex = 0;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,7 +132,7 @@ export default function Dashboard(props: {
         open={props.open}
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
-        currentlyOpen={0}
+        currentlyOpen={pageIndex}
         setPage={props.setPage}
       />
       <main className={classes.content}>
