@@ -110,6 +110,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function parseSeconds(seconds: number) {
+  return `${Math.floor((seconds / 60) % 60)}m ${seconds % 60}s`;
+}
+
 function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
   const classes = useStyles();
 
@@ -154,7 +158,7 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
     },
     {
       title: 'Remaining time',
-      description: data?.remainingSeconds,
+      description: data ? parseSeconds(data.remainingSeconds) : '0',
       icon: (
         <Icon
           path={mdiClock}
