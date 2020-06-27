@@ -38,7 +38,6 @@ export async function getAlarmclockTemperatureArray() {
   });
   const json = await res.json();
 
-  console.log(JSON.parse(await json));
   return await JSON.parse(json);
 }
 

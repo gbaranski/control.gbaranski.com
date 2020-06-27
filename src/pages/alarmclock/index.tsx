@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,8 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import LeftNavigationBar from '../../components/leftNavigationBar';
+import TempChart from '../../components/tempChart';
 import Copyright from '../../components/copyright';
-import Chart from '../dashboard/Chart';
 import {mdiThermometer} from '@mdi/js';
 import {mdiWater} from '@mdi/js';
 import {mdiClock} from '@mdi/js';
@@ -44,7 +44,6 @@ import {
   sendTimeRequest,
   switchAlarmState,
   testSiren,
-  getAlarmclockTemperatureArray,
 } from '../../requests';
 
 const drawerWidth = 240;
@@ -127,12 +126,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alarmclock(props: {
-  setPage: any;
-  open: boolean;
-  setOpen: any;
-  data: AlarmclockData | undefined;
-}) {
+function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => {
@@ -205,10 +199,6 @@ function Alarmclock(props: {
     setTimeDialogOpen(true);
   };
 
-  useEffect(() => {
-    getAlarmclockTemperatureArray();
-  }, []);
-
   useInterval(async () => {
     setData(await getAlarmClockData());
   }, 1000);
@@ -218,7 +208,7 @@ function Alarmclock(props: {
   const deviceInfo = [
     {
       title: 'Temperature',
-      description: data?.temperature + '°C' || '',
+      description: data?.temperature + '°C / ' + data?.heatIndex + '°C' || '',
       icon: <Icon path={mdiThermometer} size={2} color="rgb(117,117,117)" />,
     },
     {
@@ -363,7 +353,7 @@ function Alarmclock(props: {
             <Grid container spacing={3}>
               <Grid item xs={12} md={8} lg={9}>
                 <Paper className={fixedHeightPaper}>
-                  <Chart />
+                  <TempChart />
                 </Paper>
               </Grid>
               <Grid item xs={12} md={4} lg={3}>
