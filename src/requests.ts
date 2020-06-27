@@ -1,6 +1,6 @@
 import {AlarmclockData} from '@gbaranski/types';
 
-const remoteUrl = 'https://api.gbaranski.com/api';
+const remoteUrl = 'https://api.gbaranski.com';
 
 function getHeaders() {
   const headers = new Headers();
@@ -21,6 +21,18 @@ export const login = async () => {
 export async function getAlarmClockData(): Promise<AlarmclockData> {
   const alarmClockDataUrl = `${remoteUrl}/alarmclock/getData`;
   const res = await fetch(alarmClockDataUrl, {
+    method: 'POST',
+    headers: getHeaders(),
+  });
+  const json = await res.json();
+
+  console.log(JSON.parse(await json));
+  return await JSON.parse(json);
+}
+
+export async function getAlarmclockTemperatureArray() {
+  const alarmClockArrayUrl = `${remoteUrl}/alarmclock/getTempArray`;
+  const res = await fetch(alarmClockArrayUrl, {
     method: 'POST',
     headers: getHeaders(),
   });

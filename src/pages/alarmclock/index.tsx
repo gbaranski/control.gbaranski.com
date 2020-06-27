@@ -44,6 +44,7 @@ import {
   sendTimeRequest,
   switchAlarmState,
   testSiren,
+  getAlarmclockTemperatureArray,
 } from '../../requests';
 
 const drawerWidth = 240;
@@ -203,6 +204,10 @@ function Alarmclock(props: {
   const handleSetAlarmTime = () => {
     setTimeDialogOpen(true);
   };
+
+  useEffect(() => {
+    getAlarmclockTemperatureArray();
+  }, []);
 
   useInterval(async () => {
     setData(await getAlarmClockData());
