@@ -7,6 +7,8 @@ import {
   YAxis,
   Label,
   ResponsiveContainer,
+  Tooltip,
+  Legend,
 } from 'recharts';
 import Title from '../../components/title';
 import moment from 'moment';
@@ -42,9 +44,14 @@ export default function TempChart() {
             domain={['auto', 'auto']}
             name="Time"
             type="number"
-            tickFormatter={(unixTime) => moment(unixTime).format('HH:mm Do')}
-            stroke={theme.palette.text.secondary}
-          />
+            tickFormatter={(unixTime) => moment(unixTime).format('HH:mm')}
+            stroke={theme.palette.text.secondary}>
+            <Label
+              position="bottom"
+              style={{textAnchor: 'middle', fill: theme.palette.text.primary}}>
+              Date (HH:mm)
+            </Label>
+          </XAxis>
           <YAxis
             dataKey="temp"
             name="Temperature"
@@ -56,6 +63,11 @@ export default function TempChart() {
               Temperature (°C)
             </Label>
           </YAxis>
+          <Tooltip
+            formatter={(text) => text + '°C'}
+            labelFormatter={(unixTime) => moment(unixTime).format('HH:mm')}
+          />
+          <Legend formatter={() => 'Temperature °C'} align="right" />
           <Line
             type="monotone"
             dataKey="temp"
