@@ -49,7 +49,8 @@ export const mainListItems = (props: any) => {
       button
       selected={props.currentlyOpen === index}
       disabled={checkIfDisabledItem(index)}
-      onClick={() => props.setPage(index)}>
+      onClick={() => props.setPage(index)}
+      key={index}>
       <ListItemIcon>
         <Icons index={index} />
       </ListItemIcon>
@@ -61,13 +62,13 @@ export const mainListItems = (props: any) => {
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>More</ListSubheader>
-    <ListItem button>
+    <ListItem button key={1}>
       <ListItemIcon>
         <InfoIcon />
       </ListItemIcon>
       <ListItemText primary="About website" />
     </ListItem>
-    <ListItem button disabled>
+    <ListItem button disabled key={2}>
       <ListItemIcon>
         <LiveHelpIcon />
       </ListItemIcon>

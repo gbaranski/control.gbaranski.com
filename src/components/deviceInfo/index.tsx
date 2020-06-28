@@ -11,8 +11,8 @@ interface deviceInfoElement {
 }
 
 function ParsedDeviceInfo(props: any) {
-  return props.data.map((_data: deviceInfoElement) => (
-    <ListItem>
+  return props.data.map((_data: deviceInfoElement, index: number) => (
+    <ListItem key={index}>
       {_data.icon && <ListItemAvatar>{_data.icon}</ListItemAvatar>}
       <ListItemText primary={_data.title} secondary={_data.description} />
     </ListItem>

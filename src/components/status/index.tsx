@@ -36,27 +36,27 @@ export default function Status() {
     <React.Fragment>
       <Title>Devices Status</Title>
       <List>
-        <ListItem>
+        <ListItem key={1}>
           <ListItemText primary="Alarmclock" secondary="192.168.1.110" />
           <ListItemAvatar>
             <GetAvatar state={deviceStatus.alarmclock} />
           </ListItemAvatar>
         </ListItem>
-        <ListItem>
+        <ListItem key={2}>
           <ListItemText primary="Watermixer" secondary="192.168.1.120" />
           <ListItemAvatar>
             <GetAvatar state={deviceStatus.watermixer} />
           </ListItemAvatar>
         </ListItem>
         <Divider variant="inset" component="li" />
-        <ListItem>
+        <ListItem key={3}>
           <ListItemText primary="Gate" secondary="192.168.1.1xx" />
           <ListItemAvatar>
             <GetAvatar state={deviceStatus.gate} />
           </ListItemAvatar>
         </ListItem>
         <Divider variant="inset" component="li" />
-        <ListItem>
+        <ListItem key={4}>
           <ListItemText primary="Garage" secondary="192.168.1.1xx" />
           <ListItemAvatar>
             <GetAvatar state={deviceStatus.garage} />
