@@ -224,13 +224,8 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
               color="inherit"
               noWrap
               className={classes.title}>
-              Alarmclock
+              Watermixer
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <LeftNavigationBar

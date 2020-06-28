@@ -333,11 +333,6 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
               className={classes.title}>
               Alarmclock
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <LeftNavigationBar
