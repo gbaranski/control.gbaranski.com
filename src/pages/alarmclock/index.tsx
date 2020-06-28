@@ -251,11 +251,11 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
           open={timeDialogOpen}
           onClose={() => setTimeDialogOpen(false)}
           aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Set new Alarm Time</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              Use time input below to set new alarm time, press Save to save
+              that to remote ESP microcontroller
             </DialogContentText>
             <KeyboardTimePicker
               margin="normal"
