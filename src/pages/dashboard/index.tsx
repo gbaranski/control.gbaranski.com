@@ -14,10 +14,10 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './Chart';
-import Status from './Status';
-import Requests from './Requets';
+import Status from '../../components/status';
 import LeftNavigationBar from '../../components/leftNavigationBar';
 import Copyright from '../../components/copyright';
+import Requests from '../../components/requests';
 
 const drawerWidth = 240;
 const pageIndex = 0;

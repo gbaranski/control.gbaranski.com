@@ -7,7 +7,6 @@ import Watermixer from './pages/watermixer';
 import {isMobile} from 'react-device-detect';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
-import {AlarmclockData} from '@gbaranski/types';
 
 const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
   const res = login();

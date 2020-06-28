@@ -18,6 +18,27 @@ export const login = async () => {
   return res.status === 200;
 };
 
+export async function getDeviceStatus() {
+  const alarmClockArrayUrl = `${remoteUrl}/getDeviceStatus`;
+  const res = await fetch(alarmClockArrayUrl, {
+    method: 'GET',
+    headers: getHeaders(),
+  });
+  const json = await res.json();
+
+  return await JSON.parse(json);
+}
+export async function getRequestHistory() {
+  const getRequestHistoryUrl = `${remoteUrl}/getHistory`;
+  const res = await fetch(getRequestHistoryUrl, {
+    method: 'GET',
+    headers: getHeaders(),
+  });
+
+  const json = await res.json();
+  return json;
+}
+
 export async function getAlarmClockData(): Promise<AlarmclockData> {
   const alarmClockDataUrl = `${remoteUrl}/alarmclock/getData`;
   const res = await fetch(alarmClockDataUrl, {
