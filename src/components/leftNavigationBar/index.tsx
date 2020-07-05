@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import {makeStyles, IconButton, Divider, List} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {mainListItems, secondaryListItems} from './NavigationList';
+import Appbar from '../appbar';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -42,35 +43,43 @@ interface props {
   handleDrawerClose: any;
   currentlyOpen: number;
   setPage: any;
+  pageName: string;
 }
 
 function LeftNavigationBar(props: props) {
   const classes = useStyles();
   return (
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: clsx(
-          classes.drawerPaper,
-          !props.open && classes.drawerPaperClose,
-        ),
-      }}
-      open={props.open}>
-      <div className={classes.toolbarIcon}>
-        <IconButton onClick={props.handleDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>
-        {mainListItems({
-          setPage: props.setPage,
-          currentlyOpen: props.currentlyOpen,
-        })}
-      </List>
-      <Divider />
-      <List>{secondaryListItems}</List>
-    </Drawer>
+    <>
+      <Appbar
+        open={props.open}
+        handleDrawerOpen={props.handleDrawerOpen}
+        pageName={props.pageName}
+      />
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(
+            classes.drawerPaper,
+            !props.open && classes.drawerPaperClose,
+          ),
+        }}
+        open={props.open}>
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={props.handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {mainListItems({
+            setPage: props.setPage,
+            currentlyOpen: props.currentlyOpen,
+          })}
+        </List>
+        <Divider />
+        <List>{secondaryListItems}</List>
+      </Drawer>
+    </>
   );
 }
 
