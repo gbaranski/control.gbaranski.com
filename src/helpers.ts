@@ -20,3 +20,21 @@ export function useInterval(callback: any, delay: number) {
     }
   }, [delay]);
 }
+
+export function formatOneDigitToDouble(string: number) {
+  return ('0' + String(string)).slice(-2);
+}
+export function parseDateToDateString(date: Date) {
+  const parsedDate = new Date(date);
+  return (
+    formatOneDigitToDouble(parsedDate.getHours()) +
+    ':' +
+    formatOneDigitToDouble(parsedDate.getMinutes()) +
+    '  ' +
+    formatOneDigitToDouble(parsedDate.getDate()) +
+    '/' +
+    formatOneDigitToDouble(parsedDate.getMonth() + 1) +
+    '/' +
+    parsedDate.getFullYear()
+  );
+}

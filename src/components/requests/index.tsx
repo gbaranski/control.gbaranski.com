@@ -7,6 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from '../../components/title';
 import {RequestHistory} from '@gbaranski/types';
 import {getRequestHistory} from '../../requests';
+import {parseDateToDateString} from '../../helpers';
 
 export default function Requests() {
   const [requestHistory, setRequestHistory] = React.useState<any>([{}]);
@@ -33,7 +34,7 @@ export default function Requests() {
         <TableBody>
           {requestHistory.map((row: RequestHistory, index: number) => (
             <TableRow key={index}>
-              <TableCell>{row.date}</TableCell>
+              <TableCell>{parseDateToDateString(row.date)}</TableCell>
               <TableCell>{row.user}</TableCell>
               <TableCell>{row.requestType}</TableCell>
               <TableCell>{row.ip}</TableCell>
