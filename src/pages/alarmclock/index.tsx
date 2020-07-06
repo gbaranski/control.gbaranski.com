@@ -130,7 +130,14 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
     props.setOpen(false);
   };
 
-  const [data, setData] = React.useState<AlarmclockData | undefined>(undefined);
+  const dataFromCache = localStorage.getItem('lastAlarmclockData');
+  const parsedDataFromCachce: AlarmclockData | undefined = dataFromCache
+    ? JSON.parse(dataFromCache)
+    : undefined;
+
+  const [data, setData] = React.useState<AlarmclockData | undefined>(
+    parsedDataFromCachce || undefined,
+  );
   const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -194,7 +201,9 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   };
 
   useInterval(async () => {
-    setData(await getAlarmClockData());
+    const alarmclockData = await getAlarmClockData();
+    setData(alarmclockData);
+    localStorage.setItem('lastAlarmclockData', JSON.stringify(alarmclockData));
   }, 1000);
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);

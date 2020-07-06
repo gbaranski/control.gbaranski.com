@@ -10,7 +10,7 @@ function getHeaders() {
 }
 
 export const login = async () => {
-  const loginPageUrl = `${remoteUrl}/login`;
+  const loginPageUrl = `${remoteUrl}/api/login`;
   const res = await fetch(loginPageUrl, {
     method: 'POST',
     headers: getHeaders(),
@@ -19,7 +19,7 @@ export const login = async () => {
 };
 
 export async function getDeviceStatus() {
-  const alarmClockArrayUrl = `${remoteUrl}/getDeviceStatus`;
+  const alarmClockArrayUrl = `${remoteUrl}/api/getDeviceStatus`;
   const res = await fetch(alarmClockArrayUrl, {
     method: 'GET',
     headers: getHeaders(),
@@ -29,7 +29,7 @@ export async function getDeviceStatus() {
   return await JSON.parse(json);
 }
 export async function getRequestHistory() {
-  const getRequestHistoryUrl = `${remoteUrl}/getHistory`;
+  const getRequestHistoryUrl = `${remoteUrl}/api/getHistory`;
   const res = await fetch(getRequestHistoryUrl, {
     method: 'GET',
     headers: getHeaders(),
@@ -42,7 +42,7 @@ export async function getRequestHistory() {
 export async function getAlarmClockData(): Promise<AlarmclockData> {
   const alarmClockDataUrl = `${remoteUrl}/alarmclock/getData`;
   const res = await fetch(alarmClockDataUrl, {
-    method: 'POST',
+    method: 'GET',
     headers: getHeaders(),
   });
   const json = await res.json();
@@ -54,7 +54,7 @@ export async function getAlarmClockData(): Promise<AlarmclockData> {
 export async function getAlarmclockTemperatureArray() {
   const alarmClockArrayUrl = `${remoteUrl}/alarmclock/getTempArray`;
   const res = await fetch(alarmClockArrayUrl, {
-    method: 'POST',
+    method: 'GET',
     headers: getHeaders(),
   });
   const json = await res.json();
@@ -100,7 +100,7 @@ export async function testSiren() {
 export async function getWatermixerData() {
   const alarmClockDataUrl = `${remoteUrl}/watermixer/getData`;
   const res = await fetch(alarmClockDataUrl, {
-    method: 'POST',
+    method: 'GET',
     headers: getHeaders(),
   });
   const json = await res.json();
@@ -110,7 +110,7 @@ export async function getWatermixerData() {
 }
 
 export async function startMixing() {
-  const res = await fetch(`${remoteUrl}/watermixer/start`, {
+  const res = await fetch(`${remoteUrl}/watermixer/startMixing`, {
     method: 'POST',
     headers: getHeaders(),
   });
