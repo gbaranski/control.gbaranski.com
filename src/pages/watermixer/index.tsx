@@ -118,9 +118,16 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
     props.setOpen(false);
   };
 
+  const dataFromCache = localStorage.getItem('lastWatermixerData');
+  const parsedDataFromCache: WatermixerData | undefined = dataFromCache
+    ? JSON.parse(dataFromCache)
+    : undefined;
+
+  const [data, setData] = React.useState<WatermixerData | undefined>(
+    parsedDataFromCache || undefined,
+  );
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [data, setData] = React.useState<WatermixerData | undefined>(undefined);
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -139,7 +146,9 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
   };
 
   useInterval(async () => {
-    setData(await getWatermixerData());
+    const newData = await getWatermixerData();
+    setData(newData);
+    localStorage.setItem('lastWatermixerData', JSON.stringify(newData));
   }, 1000);
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);

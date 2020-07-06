@@ -131,12 +131,12 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
   };
 
   const dataFromCache = localStorage.getItem('lastAlarmclockData');
-  const parsedDataFromCachce: AlarmclockData | undefined = dataFromCache
+  const parsedDataFromCache: AlarmclockData | undefined = dataFromCache
     ? JSON.parse(dataFromCache)
     : undefined;
 
   const [data, setData] = React.useState<AlarmclockData | undefined>(
-    parsedDataFromCachce || undefined,
+    parsedDataFromCache || undefined,
   );
   const [timeDialogOpen, setTimeDialogOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
