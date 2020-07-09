@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from '../../components/title';
 import {RequestHistory} from '@gbaranski/types';
 import {parseDateToDateString} from '../../helpers';
-import {getRequestHistory} from '../../firebase';
+import {getRequestHistory} from '../../services/firebase';
 
 export default function Requests() {
   const [requestHistory, setRequestHistory] = React.useState<any>([{}]);

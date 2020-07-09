@@ -5,7 +5,7 @@ import routes from './routes';
 import LoginPage from './pages/login';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
-import {initializeFirebase} from './firebase';
+import {initializeFirebase} from './services/firebase';
 import LeftNavigationBar from './components/leftNavigationBar';
 import {makeStyles} from '@material-ui/core';
 
