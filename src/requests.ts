@@ -28,17 +28,6 @@ export async function getDeviceStatus() {
 
   return await JSON.parse(json);
 }
-export async function getRequestHistory() {
-  const getRequestHistoryUrl = `${remoteUrl}/api/getHistory`;
-  const res = await fetch(getRequestHistoryUrl, {
-    method: 'GET',
-    headers: getHeaders(),
-  });
-
-  const json = await res.json();
-  return json;
-}
-
 export async function getAlarmClockData(): Promise<AlarmclockData> {
   const alarmClockDataUrl = `${remoteUrl}/alarmclock/getData`;
   const res = await fetch(alarmClockDataUrl, {

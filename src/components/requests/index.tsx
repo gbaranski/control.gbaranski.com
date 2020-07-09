@@ -6,16 +6,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from '../../components/title';
 import {RequestHistory} from '@gbaranski/types';
-import {getRequestHistory} from '../../requests';
 import {parseDateToDateString} from '../../helpers';
+import {getRequestHistory} from '../../firebase';
 
 export default function Requests() {
   const [requestHistory, setRequestHistory] = React.useState<any>([{}]);
 
   useEffect(() => {
-    getRequestHistory().then((res: RequestHistory[]) => {
-      setRequestHistory(res);
-      console.log(res);
+    getRequestHistory().then((reqHistory: RequestHistory[]) => {
+      setRequestHistory(reqHistory);
     });
   }, []);
 
@@ -27,17 +26,23 @@ export default function Requests() {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>User</TableCell>
-            <TableCell>Request name</TableCell>
+            <TableCell>Request</TableCell>
             <TableCell>IP</TableCell>
+            <TableCell>Country</TableCell>
+            <TableCell>User-agent</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {requestHistory.map((row: RequestHistory, index: number) => (
             <TableRow key={index}>
-              <TableCell>{parseDateToDateString(row.date)}</TableCell>
+              <TableCell>
+                {parseDateToDateString(new Date(row.unixTime))}
+              </TableCell>
               <TableCell>{row.user}</TableCell>
-              <TableCell>{row.requestType}</TableCell>
+              <TableCell>{row.requestPath}</TableCell>
               <TableCell>{row.ip}</TableCell>
+              <TableCell>{row.country}</TableCell>
+              <TableCell>{row.userAgent}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
@@ -7,6 +7,7 @@ import Watermixer from './pages/watermixer';
 import {isMobile} from 'react-device-detect';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
+import {initializeFirebase} from './firebase';
 
 const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
   const res = login();
@@ -17,6 +18,10 @@ const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
 };
 
 const App = () => {
+  useEffect(() => {
+    initializeFirebase();
+  }, []);
+
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAttemptedToLogin, setAttemptedToLogin] = useState(false);
   const [currentPage, setPage] = useState(0);

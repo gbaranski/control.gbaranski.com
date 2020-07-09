@@ -5,7 +5,7 @@
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@date-io/moment": "^2.6.0",
-    "@gbaranski/types": "^1.1.6",
+    "@gbaranski/types": "^1.2.3",
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/recharts": "^1.8.12",
     "date-fns": "^2.14.0",
+    "firebase": "^7.15.5",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-device-detect": "^1.13.1",
