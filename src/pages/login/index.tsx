@@ -13,17 +13,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import {login} from '../../requests';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Made by '}
-      <Link href="https://github.com/gbaranski" target="blank">
-        Grzegorz Baranski
-      </Link>
-    </Typography>
-  );
-}
+import Copyright from '../../components/copyright';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

@@ -9,21 +9,18 @@ const routes = [
     name: 'Dashboard',
     main: () => <Dashboard />,
     exact: true,
-    navbar: true,
   },
   {
     path: '/alarmclock',
     name: 'Alarmclock',
     main: () => <Alarmclock />,
     exact: true,
-    navbar: true,
   },
   {
     path: '/watermixer',
     name: 'Watermixer',
     main: () => <Watermixer />,
     exact: true,
-    navbar: true,
   },
 ];
 

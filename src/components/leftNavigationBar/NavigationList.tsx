@@ -11,6 +11,7 @@ import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import {Link} from 'react-router-dom';
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 const Icons = (props: {index: number}) => {
   switch (props.index) {

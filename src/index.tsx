@@ -53,27 +53,31 @@ const App = () => {
     setOpen(true);
   };
   return (
-    <div className={classes.root}>
-      <Router>
-        <LeftNavigationBar
-          open={open}
-          handleDrawerClose={handleDrawerClose}
-          handleDrawerOpen={handleDrawerOpen}
-          currentlyOpen={1}
-          pageName={'123'}
-        />
+    <Router>
+      <div className={classes.root}>
         <Switch>
           {routes.map((route, index) => (
             <Route
               key={index}
               path={route.path}
               exact={route.exact}
-              children={<route.main />}
+              children={
+                <>
+                  <LeftNavigationBar
+                    open={open}
+                    handleDrawerClose={handleDrawerClose}
+                    handleDrawerOpen={handleDrawerOpen}
+                    currentlyOpen={index}
+                    pageName={route.name}
+                  />
+                  <route.main />
+                </>
+              }
             />
           ))}
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 };
 
