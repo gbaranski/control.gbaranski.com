@@ -10,8 +10,8 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
-import {Link} from 'react-router-dom';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import {NavLink, matchPath} from 'react-router-dom';
+import {ThemeProvider} from '@material-ui/core';
 
 const Icons = (props: {index: number}) => {
   switch (props.index) {
@@ -58,20 +58,16 @@ const checkIfDisabledItem = (index: number) => {
   return disabledItems.includes(Object.values(Devices)[index - 1]);
 };
 
-export const mainListItems = (props: any) => {
+export const mainListItems = () => {
   return [0, 1, 2, 3].map((_element, index) => (
-    <Link to={() => getLink(index)}>
-      <ListItem
-        button
-        selected={props.currentlyOpen === index}
-        disabled={checkIfDisabledItem(index)}
-        key={index}>
+    <NavLink to={() => getLink(index)} activeClassName="selected">
+      <ListItem button disabled={checkIfDisabledItem(index)} key={index}>
         <ListItemIcon>
           <Icons index={index} />
         </ListItemIcon>
         <ListItemText primary={primaryText(index)} />
       </ListItem>
-    </Link>
+    </NavLink>
   ));
 };
 

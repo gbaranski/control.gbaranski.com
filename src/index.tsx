@@ -55,24 +55,18 @@ const App = () => {
   return (
     <Router>
       <div className={classes.root}>
+        <LeftNavigationBar
+          open={open}
+          handleDrawerClose={handleDrawerClose}
+          handleDrawerOpen={handleDrawerOpen}
+        />
         <Switch>
           {routes.map((route, index) => (
             <Route
               key={index}
               path={route.path}
               exact={route.exact}
-              children={
-                <>
-                  <LeftNavigationBar
-                    open={open}
-                    handleDrawerClose={handleDrawerClose}
-                    handleDrawerOpen={handleDrawerOpen}
-                    currentlyOpen={index}
-                    pageName={route.name}
-                  />
-                  <route.main />
-                </>
-              }
+              children={<route.main />}
             />
           ))}
         </Switch>

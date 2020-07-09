@@ -41,8 +41,6 @@ interface props {
   open: boolean;
   handleDrawerOpen: any;
   handleDrawerClose: any;
-  currentlyOpen: number;
-  pageName: string;
 }
 
 function LeftNavigationBar(props: props) {
@@ -52,7 +50,7 @@ function LeftNavigationBar(props: props) {
       <Appbar
         open={props.open}
         handleDrawerOpen={props.handleDrawerOpen}
-        pageName={props.pageName}
+        pageName={'Testing'}
       />
       <Drawer
         variant="permanent"
@@ -69,11 +67,7 @@ function LeftNavigationBar(props: props) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {mainListItems({
-            currentlyOpen: props.currentlyOpen,
-          })}
-        </List>
+        <List>{mainListItems()}</List>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>
