@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
 import Alarmclock from './pages/alarmclock';
 import Watermixer from './pages/watermixer';
-import {isMobile} from 'react-device-detect';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
 import {initializeFirebase} from './firebase';
@@ -24,7 +24,6 @@ const App = () => {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAttemptedToLogin, setAttemptedToLogin] = useState(false);
-  const [currentPage, setPage] = useState(0);
   const [open, setOpen] = useState(true);
 
   if (!isAttemptedToLogin) {
@@ -40,34 +39,21 @@ const App = () => {
     );
   }
 
-  const handleSetPage = (page: number) => {
-    if (isMobile) {
-      setOpen(false);
-    }
-    setPage(page);
-  };
-
-  switch (currentPage) {
-    default:
-    case 0:
-      return (
-        <Dashboard setPage={handleSetPage} open={open} setOpen={setOpen} />
-      );
-    case 1:
-      return (
-        <Alarmclock setPage={handleSetPage} open={open} setOpen={setOpen} />
-      );
-    case 2:
-      return (
-        <Watermixer setPage={handleSetPage} open={open} setOpen={setOpen} />
-      );
-  }
+  return (
+    <Router>
+      <Switch>
+        <Route path="/dashboard">
+          <Dashboard open={open} setOpen={setOpen} />
+        </Route>
+        <Route exact path="/alarmclock">
+          <Alarmclock open={open} setOpen={setOpen} />
+        </Route>
+        <Route exact path="/watermixer">
+          <Watermixer open={open} setOpen={setOpen} />
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 
-ReactDOM.render(
-  <>
-    <App />
-  </>,
-  // @ts-ignore
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));

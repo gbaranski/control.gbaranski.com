@@ -42,7 +42,6 @@ interface props {
   handleDrawerOpen: any;
   handleDrawerClose: any;
   currentlyOpen: number;
-  setPage: any;
   pageName: string;
 }
 
@@ -72,7 +71,6 @@ function LeftNavigationBar(props: props) {
         <Divider />
         <List>
           {mainListItems({
-            setPage: props.setPage,
             currentlyOpen: props.currentlyOpen,
           })}
         </List>

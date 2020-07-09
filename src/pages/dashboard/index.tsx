@@ -74,11 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard(props: {
-  setPage: any;
-  open: boolean;
-  setOpen: any;
-}) {
+export default function Dashboard(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
   const handleDrawerOpen = () => {
     props.setOpen(true);
@@ -96,7 +92,6 @@ export default function Dashboard(props: {
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
         currentlyOpen={pageIndex}
-        setPage={props.setPage}
         pageName="Dashboard"
       />
       <main className={classes.content}>

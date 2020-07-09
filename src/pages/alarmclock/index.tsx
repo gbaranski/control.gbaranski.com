@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
+function Alarmclock(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => {
@@ -318,7 +318,6 @@ function Alarmclock(props: {setPage: any; open: boolean; setOpen: any}) {
           handleDrawerClose={handleDrawerClose}
           handleDrawerOpen={handleDrawerOpen}
           currentlyOpen={pageIndex}
-          setPage={props.setPage}
           pageName="Alarmclock"
         />
         <main className={classes.content}>

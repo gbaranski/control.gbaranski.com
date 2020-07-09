@@ -10,6 +10,7 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import {Link} from 'react-router-dom';
 
 const Icons = (props: {index: number}) => {
   switch (props.index) {
@@ -25,6 +26,19 @@ const Icons = (props: {index: number}) => {
   }
 };
 
+const getLink = (index: number) => {
+  switch (index) {
+    default:
+    case 0:
+      return '/dashboard';
+    case 1:
+      return '/alarmclock';
+    case 2:
+      return '/watermixer';
+    case 3:
+      return '/gate';
+  }
+};
 const primaryText = (index: number) => {
   if (index === 0) {
     return 'Dashboard';
@@ -45,17 +59,18 @@ const checkIfDisabledItem = (index: number) => {
 
 export const mainListItems = (props: any) => {
   return [0, 1, 2, 3].map((_element, index) => (
-    <ListItem
-      button
-      selected={props.currentlyOpen === index}
-      disabled={checkIfDisabledItem(index)}
-      onClick={() => props.setPage(index)}
-      key={index}>
-      <ListItemIcon>
-        <Icons index={index} />
-      </ListItemIcon>
-      <ListItemText primary={primaryText(index)} />
-    </ListItem>
+    <Link to={() => getLink(index)}>
+      <ListItem
+        button
+        selected={props.currentlyOpen === index}
+        disabled={checkIfDisabledItem(index)}
+        key={index}>
+        <ListItemIcon>
+          <Icons index={index} />
+        </ListItemIcon>
+        <ListItemText primary={primaryText(index)} />
+      </ListItem>
+    </Link>
   ));
 };
 

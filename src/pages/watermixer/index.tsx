@@ -108,7 +108,7 @@ function parseSeconds(seconds: number) {
   return `${Math.floor((seconds / 60) % 60)}m ${seconds % 60}s`;
 }
 
-function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
+function Watermixer(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => {
@@ -210,7 +210,6 @@ function Watermixer(props: {setPage: any; open: boolean; setOpen: any}) {
           handleDrawerClose={handleDrawerClose}
           handleDrawerOpen={handleDrawerOpen}
           currentlyOpen={pageIndex}
-          setPage={props.setPage}
           pageName="Watermixer"
         />
         <main className={classes.content}>
