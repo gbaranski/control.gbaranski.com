@@ -7,14 +7,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import LeftNavigationBar from '../../components/leftNavigationBar';
 import Copyright from '../../components/copyright';
 import {mdiWater} from '@mdi/js';
 import {mdiClock} from '@mdi/js';
 import Icon from '@mdi/react';
 import DeviceManager from '../../components/deviceManager';
 import DeviceInfo from '../../components/deviceInfo';
-import green from '@material-ui/core/colors/green';
 import CloseIcon from '@material-ui/icons/Close';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
@@ -24,44 +22,7 @@ import {WatermixerData} from '@gbaranski/types';
 import {useInterval} from '../../helpers';
 import {getWatermixerData, startMixing} from '../../requests';
 
-const drawerWidth = 240;
-const pageIndex = 2;
-
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
   title: {
     flexGrow: 1,
   },
@@ -84,24 +45,6 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
-  buttonSuccess: {
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[700],
-    },
-  },
-  wrapper: {
-    margin: theme.spacing(1),
-    position: 'relative',
-  },
-  buttonProgress: {
-    color: green[500],
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
-  },
 }));
 
 function parseSeconds(seconds: number) {
@@ -110,13 +53,6 @@ function parseSeconds(seconds: number) {
 
 function Watermixer(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
-
-  const handleDrawerOpen = () => {
-    props.setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    props.setOpen(false);
-  };
 
   const dataFromCache = localStorage.getItem('lastWatermixerData');
   const parsedDataFromCache: WatermixerData | undefined = dataFromCache
@@ -175,71 +111,62 @@ function Watermixer(props: {open: boolean; setOpen: any}) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <div className={classes.root}>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleSnackbarClose}
-          message={snackbarMessage}
-          action={
-            <React.Fragment>
-              <Button
-                color="secondary"
-                size="small"
-                onClick={handleSnackbarClose}>
-                UNDO
-              </Button>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleSnackbarClose}>
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        action={
+          <React.Fragment>
+            <Button
+              color="secondary"
+              size="small"
+              onClick={handleSnackbarClose}>
+              UNDO
+            </Button>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleSnackbarClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
 
-        <CssBaseline />
-        <LeftNavigationBar
-          open={props.open}
-          handleDrawerClose={handleDrawerClose}
-          handleDrawerOpen={handleDrawerOpen}
-          currentlyOpen={pageIndex}
-          pageName="Watermixer"
-        />
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={12}>
-                <Paper className={fixedHeightPaper}>
-                  <DeviceInfo data={deviceInfo} />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <DeviceManager
-                    data={[
-                      {
-                        onClick: handleStartMixing,
-                        innerText: 'Start mixing',
-                      },
-                    ]}
-                  />
-                </Paper>
-              </Grid>
+      <CssBaseline />
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={12}>
+              <Paper className={fixedHeightPaper}>
+                <DeviceInfo data={deviceInfo} />
+              </Paper>
             </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
-          </Container>
-        </main>
-      </div>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <DeviceManager
+                  data={[
+                    {
+                      onClick: handleStartMixing,
+                      innerText: 'Start mixing',
+                    },
+                  ]}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
     </MuiPickersUtilsProvider>
   );
 }

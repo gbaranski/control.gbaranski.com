@@ -8,6 +8,14 @@ import Watermixer from './pages/watermixer';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
 import {initializeFirebase} from './firebase';
+import LeftNavigationBar from './components/leftNavigationBar';
+import {makeStyles} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+}));
 
 const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
   const res = login();
@@ -18,6 +26,7 @@ const getLoginPage = async (setLoggedIn: any, setAttemptedToLogin: any) => {
 };
 
 const App = () => {
+  const classes = useStyles();
   useEffect(() => {
     initializeFirebase();
   }, []);
@@ -39,20 +48,50 @@ const App = () => {
     );
   }
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/dashboard">
-          <Dashboard open={open} setOpen={setOpen} />
-        </Route>
-        <Route exact path="/alarmclock">
-          <Alarmclock open={open} setOpen={setOpen} />
-        </Route>
-        <Route exact path="/watermixer">
-          <Watermixer open={open} setOpen={setOpen} />
-        </Route>
-      </Switch>
-    </Router>
+    <div className={classes.root}>
+      <Router>
+        <Switch>
+          <Route path="/dashboard">
+            <LeftNavigationBar
+              open={open}
+              handleDrawerClose={handleDrawerClose}
+              handleDrawerOpen={handleDrawerOpen}
+              currentlyOpen={0}
+              pageName="Dashboard"
+            />
+            <Dashboard open={open} setOpen={setOpen} />
+          </Route>
+          <Route exact path="/alarmclock">
+            <LeftNavigationBar
+              open={open}
+              handleDrawerClose={handleDrawerClose}
+              handleDrawerOpen={handleDrawerOpen}
+              currentlyOpen={1}
+              pageName="Alarmclock"
+            />
+            <Alarmclock open={open} setOpen={setOpen} />
+          </Route>
+          <Route exact path="/watermixer">
+            <LeftNavigationBar
+              open={open}
+              handleDrawerClose={handleDrawerClose}
+              handleDrawerOpen={handleDrawerOpen}
+              currentlyOpen={2}
+              pageName="Watermixer"
+            />
+            <Watermixer open={open} setOpen={setOpen} />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 };
 

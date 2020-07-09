@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import LeftNavigationBar from '../../components/leftNavigationBar';
 import TempChart from '../../components/tempChart';
 import Copyright from '../../components/copyright';
 import {mdiThermometer} from '@mdi/js';
@@ -41,7 +40,6 @@ import {
 } from '../../requests';
 
 const drawerWidth = 240;
-const pageIndex = 1;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -122,13 +120,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Alarmclock(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
-
-  const handleDrawerOpen = () => {
-    props.setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    props.setOpen(false);
-  };
 
   const dataFromCache = localStorage.getItem('lastAlarmclockData');
   const parsedDataFromCache: AlarmclockData | undefined = dataFromCache
@@ -313,13 +304,6 @@ function Alarmclock(props: {open: boolean; setOpen: any}) {
 
         <CssBaseline />
 
-        <LeftNavigationBar
-          open={props.open}
-          handleDrawerClose={handleDrawerClose}
-          handleDrawerOpen={handleDrawerOpen}
-          currentlyOpen={pageIndex}
-          pageName="Alarmclock"
-        />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>

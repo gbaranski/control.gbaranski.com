@@ -8,12 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from './Chart';
 import Status from '../../components/status';
-import LeftNavigationBar from '../../components/leftNavigationBar';
 import Copyright from '../../components/copyright';
 import Requests from '../../components/requests';
 
 const drawerWidth = 240;
-const pageIndex = 0;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,24 +74,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard(props: {open: boolean; setOpen: any}) {
   const classes = useStyles();
-  const handleDrawerOpen = () => {
-    props.setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    props.setOpen(false);
-  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <LeftNavigationBar
-        open={props.open}
-        handleDrawerClose={handleDrawerClose}
-        handleDrawerOpen={handleDrawerOpen}
-        currentlyOpen={pageIndex}
-        pageName="Dashboard"
-      />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
