@@ -6,6 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import {makeStyles} from '@material-ui/core';
+import {useLocation} from 'react-router-dom';
+import {capitalizeFirst} from '../../helpers';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -38,12 +40,9 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
 }));
 
-export default function Appbar(props: {
-  open: boolean;
-  handleDrawerOpen: any;
-  pageName: string;
-}) {
+export default function Appbar(props: {open: boolean; handleDrawerOpen: any}) {
   const classes = useStyles();
+  console.log(useLocation().pathname.slice(1));
   return (
     <AppBar
       position="absolute"
@@ -66,7 +65,7 @@ export default function Appbar(props: {
           color="inherit"
           noWrap
           className={classes.title}>
-          {props.pageName}
+          {capitalizeFirst(useLocation().pathname.slice(1))}
         </Typography>
       </Toolbar>
     </AppBar>

@@ -5,7 +5,6 @@ import {makeStyles, IconButton, Divider, List} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {MainListItems, secondaryListItems} from './NavigationList';
 import Appbar from '../appbar';
-import {useLocation} from 'react-router-dom';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -48,11 +47,7 @@ function LeftNavigationBar(props: props) {
   const classes = useStyles();
   return (
     <>
-      <Appbar
-        open={props.open}
-        handleDrawerOpen={props.handleDrawerOpen}
-        pageName={'Testing'}
-      />
+      <Appbar open={props.open} handleDrawerOpen={props.handleDrawerOpen} />
       <Drawer
         variant="permanent"
         classes={{

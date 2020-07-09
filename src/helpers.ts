@@ -1,5 +1,4 @@
 import {useRef, useEffect} from 'react';
-import routes from './routes';
 
 export function useInterval(callback: any, delay: number) {
   const savedCallback = useRef();
@@ -38,4 +37,8 @@ export function parseDateToDateString(date: Date) {
     '/' +
     parsedDate.getFullYear()
   );
+}
+
+export function capitalizeFirst(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

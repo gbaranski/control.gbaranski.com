@@ -1,4 +1,4 @@
-import React, {useState, createRef} from 'react';
+import React from 'react';
 import {Devices} from '@gbaranski/types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,8 +10,7 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
-import {NavLink, matchPath, useRouteMatch, useLocation} from 'react-router-dom';
-import {ThemeProvider} from '@material-ui/core';
+import {NavLink} from 'react-router-dom';
 
 const Icons = (props: {index: number}) => {
   switch (props.index) {
@@ -59,16 +58,7 @@ const checkIfDisabledItem = (index: number) => {
 };
 
 const FancyLink = React.forwardRef(
-  (
-    props: {
-      index: number;
-      className: string | undefined;
-      navigate: any;
-    },
-    ref,
-  ) => {
-    console.log(ref);
-    console.log(props);
+  (props: {index: number; className: string | undefined; navigate: any}) => {
     return (
       <ListItem
         button
@@ -91,8 +81,6 @@ export const MainListItems = () => {
       <NavLink
         to={() => getLink(index)}
         activeClassName="selected"
-        activeStyle={{color: 'red'}}
-        ref={createRef()}
         // @ts-ignore
         index={index}
         component={FancyLink}
