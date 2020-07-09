@@ -3,8 +3,9 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import {makeStyles, IconButton, Divider, List} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {mainListItems, secondaryListItems} from './NavigationList';
+import {MainListItems, secondaryListItems} from './NavigationList';
 import Appbar from '../appbar';
+import {useLocation} from 'react-router-dom';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +68,7 @@ function LeftNavigationBar(props: props) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems()}</List>
+        <List>{MainListItems()}</List>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>

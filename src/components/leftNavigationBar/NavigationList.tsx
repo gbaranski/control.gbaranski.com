@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, createRef} from 'react';
 import {Devices} from '@gbaranski/types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,7 +10,7 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
-import {NavLink, matchPath} from 'react-router-dom';
+import {NavLink, matchPath, useRouteMatch, useLocation} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core';
 
 const Icons = (props: {index: number}) => {
@@ -58,17 +58,47 @@ const checkIfDisabledItem = (index: number) => {
   return disabledItems.includes(Object.values(Devices)[index - 1]);
 };
 
-export const mainListItems = () => {
-  return [0, 1, 2, 3].map((_element, index) => (
-    <NavLink to={() => getLink(index)} activeClassName="selected">
-      <ListItem button disabled={checkIfDisabledItem(index)} key={index}>
+const FancyLink = React.forwardRef(
+  (
+    props: {
+      index: number;
+      className: string | undefined;
+      navigate: any;
+    },
+    ref,
+  ) => {
+    console.log(ref);
+    console.log(props);
+    return (
+      <ListItem
+        button
+        disabled={checkIfDisabledItem(props.index)}
+        key={props.index}
+        onClick={props.navigate}
+        selected={props.className !== undefined}>
         <ListItemIcon>
-          <Icons index={index} />
+          <Icons index={props.index} />
         </ListItemIcon>
-        <ListItemText primary={primaryText(index)} />
+        <ListItemText primary={primaryText(props.index)} />
       </ListItem>
-    </NavLink>
-  ));
+    );
+  },
+);
+
+export const MainListItems = () => {
+  return [0, 1, 2, 3].map((_element, index) => {
+    return (
+      <NavLink
+        to={() => getLink(index)}
+        activeClassName="selected"
+        activeStyle={{color: 'red'}}
+        ref={createRef()}
+        // @ts-ignore
+        index={index}
+        component={FancyLink}
+      />
+    );
+  });
 };
 
 export const secondaryListItems = (
