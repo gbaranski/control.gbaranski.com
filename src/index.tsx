@@ -1,6 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import routes from './routes';
 import LoginPage from './pages/login';
 import LoginLoading from './pages/loginLoading';
@@ -9,7 +14,7 @@ import {initializeFirebase} from './services/firebase';
 import LeftNavigationBar from './components/leftNavigationBar';
 import {makeStyles} from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
   },
@@ -37,14 +42,29 @@ const App = () => {
     getLoginPage(setLoggedIn, setAttemptedToLogin);
     return <LoginLoading />;
   }
-  if (!isLoggedIn && isAttemptedToLogin) {
-    return (
-      <LoginPage
-        setAttemptedToLogin={setAttemptedToLogin}
-        setLoggedIn={setLoggedIn}
-      />
-    );
-  }
+  const SafeRoute = ({children, ...rest}: any) => {
+    if (rest.protected) {
+      return (
+        <Route
+          {...rest}
+          render={({location}) =>
+            isLoggedIn ? (
+              children
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/login',
+                  state: {from: location},
+                }}
+              />
+            )
+          }
+        />
+      );
+    } else {
+      return <Route {...rest} render={({location}) => children} />;
+    }
+  };
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -53,26 +73,48 @@ const App = () => {
     setOpen(true);
   };
   return (
-    <Router>
-      <div className={classes.root}>
-        <LeftNavigationBar
-          open={open}
-          handleDrawerClose={handleDrawerClose}
-          handleDrawerOpen={handleDrawerOpen}
-        />
-        <Switch>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-              children={<route.main />}
+    <div className={classes.root}>
+      {isLoggedIn && (
+        <>
+          <Redirect
+            to={{
+              pathname: '/',
+            }}
+          />
+          <LeftNavigationBar
+            open={open}
+            handleDrawerClose={handleDrawerClose}
+            handleDrawerOpen={handleDrawerOpen}
+          />
+        </>
+      )}
+      <Switch>
+        {routes.map((route, index) => (
+          <SafeRoute
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            protected={route.protected}
+            children={<route.main />}
+          />
+        ))}
+        <Route path={'/login'} exact>
+          {!isLoggedIn && (
+            <LoginPage
+              setAttemptedToLogin={setAttemptedToLogin}
+              setLoggedIn={setLoggedIn}
             />
-          ))}
-        </Switch>
-      </div>
-    </Router>
+          )}
+        </Route>
+      </Switch>
+    </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+
+  document.getElementById('root'),
+);
