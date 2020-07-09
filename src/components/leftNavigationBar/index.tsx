@@ -5,6 +5,7 @@ import {makeStyles, IconButton, Divider, List} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {mainListItems, secondaryListItems} from './NavigationList';
 import Appbar from '../appbar';
+import {useLocation, useParams} from 'react-router-dom';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({

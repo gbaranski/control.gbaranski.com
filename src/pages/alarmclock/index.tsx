@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alarmclock(props: {open: boolean; setOpen: any}) {
+function Alarmclock() {
   const classes = useStyles();
 
   const dataFromCache = localStorage.getItem('lastAlarmclockData');

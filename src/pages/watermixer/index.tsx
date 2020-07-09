@@ -51,7 +51,7 @@ function parseSeconds(seconds: number) {
   return `${Math.floor((seconds / 60) % 60)}m ${seconds % 60}s`;
 }
 
-function Watermixer(props: {open: boolean; setOpen: any}) {
+function Watermixer() {
   const classes = useStyles();
 
   const dataFromCache = localStorage.getItem('lastWatermixerData');

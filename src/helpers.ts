@@ -1,4 +1,5 @@
 import {useRef, useEffect} from 'react';
+import routes from './routes';
 
 export function useInterval(callback: any, delay: number) {
   const savedCallback = useRef();
@@ -37,4 +38,14 @@ export function parseDateToDateString(date: Date) {
     '/' +
     parsedDate.getFullYear()
   );
+}
+
+export function getNameOfPath() {
+  let foundName: string = '';
+  routes.forEach((route) => {
+    if (route.navbar && route.path === window.location.pathname) {
+      foundName = route.name;
+    }
+  });
+  return foundName;
 }

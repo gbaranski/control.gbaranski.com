@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import routes from './routes';
 import LoginPage from './pages/login';
-import Dashboard from './pages/dashboard';
-import Alarmclock from './pages/alarmclock';
-import Watermixer from './pages/watermixer';
 import LoginLoading from './pages/loginLoading';
 import {login} from './requests';
 import {initializeFirebase} from './firebase';
@@ -54,41 +52,25 @@ const App = () => {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   return (
     <div className={classes.root}>
       <Router>
+        <LeftNavigationBar
+          open={open}
+          handleDrawerClose={handleDrawerClose}
+          handleDrawerOpen={handleDrawerOpen}
+          currentlyOpen={1}
+          pageName={'123'}
+        />
         <Switch>
-          <Route path="/dashboard">
-            <LeftNavigationBar
-              open={open}
-              handleDrawerClose={handleDrawerClose}
-              handleDrawerOpen={handleDrawerOpen}
-              currentlyOpen={0}
-              pageName="Dashboard"
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              children={<route.main />}
             />
-            <Dashboard open={open} setOpen={setOpen} />
-          </Route>
-          <Route exact path="/alarmclock">
-            <LeftNavigationBar
-              open={open}
-              handleDrawerClose={handleDrawerClose}
-              handleDrawerOpen={handleDrawerOpen}
-              currentlyOpen={1}
-              pageName="Alarmclock"
-            />
-            <Alarmclock open={open} setOpen={setOpen} />
-          </Route>
-          <Route exact path="/watermixer">
-            <LeftNavigationBar
-              open={open}
-              handleDrawerClose={handleDrawerClose}
-              handleDrawerOpen={handleDrawerOpen}
-              currentlyOpen={2}
-              pageName="Watermixer"
-            />
-            <Watermixer open={open} setOpen={setOpen} />
-          </Route>
+          ))}
         </Switch>
       </Router>
     </div>
