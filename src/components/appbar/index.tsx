@@ -37,12 +37,10 @@ const useStyles = makeStyles((theme) => ({
   menuButtonHidden: {
     display: 'none',
   },
-  appBarSpacer: theme.mixins.toolbar,
 }));
 
 export default function Appbar(props: {open: boolean; handleDrawerOpen: any}) {
   const classes = useStyles();
-  console.log(useLocation().pathname.slice(1));
   return (
     <AppBar
       position="absolute"

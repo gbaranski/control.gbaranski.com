@@ -95,6 +95,7 @@ const App = () => {
             path={route.path}
             exact={route.exact}
             protected={route.protected}
+            name={route.name}
             children={<route.main />}
           />
         ))}
