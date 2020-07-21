@@ -85,7 +85,7 @@ function Watermixer() {
     const newData = await getWatermixerData();
     setData(newData);
     localStorage.setItem('lastWatermixerData', JSON.stringify(newData));
-  }, 200);
+  }, 500);
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
