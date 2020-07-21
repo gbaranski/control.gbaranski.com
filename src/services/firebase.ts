@@ -1,4 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/analytics';
+
 import {RequestHistory, TempHistory} from '@gbaranski/types';
 
 const firebaseConfig = {
@@ -20,6 +23,7 @@ export function initializeFirebase() {
 
 export async function getRequestHistory() {
   const db = firebase.firestore();
+
   const collection = db.collection('requests').get();
   const requestHistory: RequestHistory[] = [];
   (await collection).forEach((doc) => {
