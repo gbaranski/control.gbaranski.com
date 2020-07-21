@@ -143,7 +143,7 @@ function Alarmclock() {
     const alarmclockData = await getAlarmClockData();
     setData(alarmclockData);
     localStorage.setItem('lastAlarmclockData', JSON.stringify(alarmclockData));
-  }, 1000);
+  }, 200);
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
