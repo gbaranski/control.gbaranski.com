@@ -41,7 +41,7 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <div className={classes.root}>
+    <>
       <CssBaseline />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -71,6 +71,6 @@ export default function Dashboard() {
           </Box>
         </Container>
       </main>
-    </div>
+    </>
   );
 }
