@@ -14,7 +14,11 @@ export default function Requests() {
 
   useEffect(() => {
     getRequestHistory().then((reqHistory: RequestHistory[]) => {
-      setRequestHistory(reqHistory);
+      setRequestHistory(
+        reqHistory.sort(
+          (a: RequestHistory, b: RequestHistory) => b.unixTime - a.unixTime,
+        ),
+      );
     });
   }, []);
 
