@@ -10,21 +10,23 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import Title from '../../components/title';
 import moment from 'moment';
-import {getAlarmclockTemperatureArray} from '../../requests';
-
-import {TempArray} from '@gbaranski/types';
-// Generate Sales Data
+import Title from '../../components/title';
+import {TempHistory} from '@gbaranski/types';
+import {getTempHistory} from '../../services/firebase';
 
 export default function TempChart() {
   const theme = useTheme();
-  const [tempArray, setTempArray] = React.useState<TempArray[]>();
+  const [tempArray, setTempArray] = React.useState<TempHistory[]>();
 
   useEffect(() => {
-    getAlarmclockTemperatureArray().then((res: TempArray[]) => {
-      setTempArray(res);
-      console.log(res);
+    getTempHistory().then((res: TempHistory[]) => {
+      setTempArray(
+        res.sort(
+          (elemA: TempHistory, elemB: TempHistory) =>
+            elemA.unixTime - elemB.unixTime,
+        ),
+      );
     });
   }, []);
   return (
@@ -53,7 +55,7 @@ export default function TempChart() {
             </Label>
           </XAxis>
           <YAxis
-            dataKey="temp"
+            dataKey="temperature"
             name="Temperature"
             stroke={theme.palette.text.secondary}>
             <Label
@@ -70,7 +72,7 @@ export default function TempChart() {
           <Legend formatter={() => 'Temperature °C'} align="right" />
           <Line
             type="monotone"
-            dataKey="temp"
+            dataKey="temperature"
             stroke={theme.palette.primary.main}
             dot={false}
           />

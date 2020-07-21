@@ -1,5 +1,4 @@
 import React from 'react';
-import {Devices} from '@gbaranski/types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,6 +10,7 @@ import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import {NavLink} from 'react-router-dom';
+import {DeviceList} from '@gbaranski/types';
 
 const Icons = (props: {index: number}) => {
   switch (props.index) {
@@ -43,18 +43,18 @@ const primaryText = (index: number) => {
   if (index === 0) {
     return 'Dashboard';
   } else {
-    let returnText = [Object.keys(Devices)[index - 1]];
-    if (returnText[0] === Devices.Gate) {
-      returnText[0] = `${Devices.Gate} & ${Devices.Garage}`;
+    let returnText = [Object.keys(DeviceList)[index - 1]];
+    if (returnText[0] === DeviceList.Gate) {
+      returnText[0] = `${DeviceList.Gate} & ${DeviceList.Garage}`;
     }
     return returnText;
   }
 };
 
-const disabledItems = [Devices.Gate];
+const disabledItems = [DeviceList.Gate];
 
 const checkIfDisabledItem = (index: number) => {
-  return disabledItems.includes(Object.values(Devices)[index - 1]);
+  return disabledItems.includes(Object.values(DeviceList)[index - 1]);
 };
 
 const FancyLink = React.forwardRef(

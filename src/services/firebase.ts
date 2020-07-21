@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import {RequestHistory} from '@gbaranski/types';
+import {RequestHistory, TempHistory} from '@gbaranski/types';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCpRLmvfBf-SpwkDUHKa_vrbEeIvSzHNOY',
@@ -28,4 +28,16 @@ export async function getRequestHistory() {
   });
   console.log(requestHistory);
   return requestHistory;
+}
+
+export async function getTempHistory() {
+  const db = firebase.firestore();
+  const collection = db.collection('temp-history').get();
+  const tempHistory: TempHistory[] = [];
+  (await collection).forEach((doc) => {
+    const docData: TempHistory = doc.data() as TempHistory;
+    tempHistory.push(docData);
+  });
+  console.log(tempHistory);
+  return tempHistory;
 }

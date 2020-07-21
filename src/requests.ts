@@ -40,17 +40,6 @@ export async function getAlarmClockData(): Promise<AlarmclockData> {
   return await JSON.parse(json);
 }
 
-export async function getAlarmclockTemperatureArray() {
-  const alarmClockArrayUrl = `${remoteUrl}/alarmclock/getTempArray`;
-  const res = await fetch(alarmClockArrayUrl, {
-    method: 'GET',
-    headers: getHeaders(),
-  });
-  const json = await res.json();
-
-  return await JSON.parse(json);
-}
-
 export async function sendTimeRequest(date: Date) {
   const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
   const headers = getHeaders();
